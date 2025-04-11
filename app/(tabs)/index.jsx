@@ -10,6 +10,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { Link, router } from "expo-router";
 
 export default function Home() {
   return (
@@ -24,7 +25,9 @@ export default function Home() {
               </Text>
               <Text style={{ fontSize: 14 }}>Good Morning</Text>
             </View>
-            <Ionicons name="notifications" size={24} color="black" />
+            <Link href="/(screens)/notification">
+              <Ionicons name="notifications" size={24} color="black" />
+            </Link>
           </View>
           {/* TOTAL */}
           <View style={HomeStyles.totalContainer}>

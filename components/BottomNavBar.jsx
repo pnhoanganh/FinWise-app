@@ -5,12 +5,16 @@ import { FontAwesome } from "@expo/vector-icons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const BottomNavBar = ({ state, descriptors, navigation }) => {
   const getIconByName = ({ routeName, focused }) => {
     const iconSize = 24;
     const activeColor = COLORS.letterAndIcon; // active
-    const inactiveColor = "gray"; // active
+    const inactiveColor = COLORS.bagie; // active
 
     switch (routeName) {
       case "index":
@@ -60,14 +64,15 @@ const BottomNavBar = ({ state, descriptors, navigation }) => {
   const styles = StyleSheet.create({
     tabBar: {
       flexDirection: "row",
-      width: "85%",
-      backgroundColor: COLORS.lightGreen,
+      width: "100%",
+      height: "10%",
+      backgroundColor: COLORS.darkGreen,
       alignSelf: "center",
       position: "absolute",
-      bottom: 40,
+      bottom: 0,
       justifyContent: "center",
       alignItems: "center",
-      borderRadius: 50,
+      borderRadius: 60,
       shadowColor: "gray",
       shadowOffset: { width: 0, height: 5 },
       shadowOpacity: 0.3,
@@ -79,9 +84,9 @@ const BottomNavBar = ({ state, descriptors, navigation }) => {
       flexDirection: "row",
       justifyContent: "center",
       alignItems: "center",
-      height: 40,
+      height: wp("12%"),
       paddingHorizontal: "5%",
-      borderRadius: 50,
+      borderRadius: wp("12%") / 2,
     },
     tabTitle: {
       marginLeft: 8,
