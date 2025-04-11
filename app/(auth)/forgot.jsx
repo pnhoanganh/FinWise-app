@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import LoginStyle from "../../assets/styles/login.styles";
 import { Image } from "expo-image";
 import COLORS from "../../constants/color";
@@ -14,93 +20,95 @@ function ForgotPassword() {
   const router = useRouter();
   return (
     <SafeScreen>
-      <View style={LoginStyle.container}>
-        <Text style={[LoginStyle.header, { textAlign: "center" }]}>
-          Forgot Password
-        </Text>
-        <View style={LoginStyle.card}>
-          {/* FORM */}
-          <View style={[{ paddingTop: hp("5%") }, LoginStyle.formContainer]}>
-            <View style={{ marginBottom: hp("8%"), gap: hp("2%") }}>
-              <Text style={LoginStyle.largeText}>Reset Password?</Text>
-              <Text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+      <ScrollView>
+        <View style={LoginStyle.container}>
+          <Text style={[LoginStyle.header, { textAlign: "center" }]}>
+            Forgot Password
+          </Text>
+          <View style={LoginStyle.card}>
+            {/* FORM */}
+            <View style={[{ paddingTop: hp("5%") }, LoginStyle.formContainer]}>
+              <View style={{ marginBottom: hp("8%"), gap: hp("2%") }}>
+                <Text style={LoginStyle.largeText}>Reset Password?</Text>
+                <Text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+                </Text>
+              </View>
+              {/* Email */}
+              <View style={LoginStyle.inputGroup}>
+                <Text style={LoginStyle.label}>Enter email address</Text>
+                <View style={LoginStyle.inputContainer}>
+                  <TextInput
+                    style={LoginStyle.input}
+                    placeholder="example@example.com"
+                    placeholderTextColor={COLORS.textSecondary}
+                  />
+                </View>
+              </View>
+            </View>
+
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={[
+                  LoginStyle.button,
+                  {
+                    backgroundColor: COLORS.mainPink,
+                    width: 200,
+                    height: 45,
+                    borderRadius: 30,
+                  },
+                ]}
+              >
+                <Text style={LoginStyle.buttonText}>Next Step</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  LoginStyle.button,
+                  {
+                    backgroundColor: COLORS.lightGreen,
+                    width: 200,
+                    height: 45,
+                    borderRadius: 30,
+                    marginTop: hp("2%"),
+                  },
+                ]}
+                onPress={() => router.navigate("/(auth)/signup")}
+              >
+                <Text style={LoginStyle.buttonText}>Sign Up</Text>
+              </TouchableOpacity>
+
+              <View style={{ marginTop: 28 }}>
+                <Text style={LoginStyle.thinText}>or sign up with</Text>
+                <View
+                  style={{
+                    marginTop: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Image
+                    source={require("../../assets/images/Facebook.svg")}
+                    style={{ width: 32, height: 32 }}
+                  ></Image>
+                  <Image
+                    source={require("../../assets/images/Google.svg")}
+                    style={{ width: 32, height: 32 }}
+                  ></Image>
+                </View>
+              </View>
+              <Text style={[LoginStyle.thinText, { marginTop: 20 }]}>
+                Don’t have an account?{" "}
+                <Link href="/(auth)/signup" style={{ color: COLORS.deepPink }}>
+                  Sign Up
+                </Link>
               </Text>
             </View>
-            {/* Email */}
-            <View style={LoginStyle.inputGroup}>
-              <Text style={LoginStyle.label}>Enter email address</Text>
-              <View style={LoginStyle.inputContainer}>
-                <TextInput
-                  style={LoginStyle.input}
-                  placeholder="example@example.com"
-                  placeholderTextColor={COLORS.textSecondary}
-                />
-              </View>
-            </View>
-          </View>
-
-          <View style={{ alignItems: "center" }}>
-            <TouchableOpacity
-              style={[
-                LoginStyle.button,
-                {
-                  backgroundColor: COLORS.mainPink,
-                  width: 200,
-                  height: 45,
-                  borderRadius: 30,
-                },
-              ]}
-            >
-              <Text style={LoginStyle.buttonText}>Next Step</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                LoginStyle.button,
-                {
-                  backgroundColor: COLORS.lightGreen,
-                  width: 200,
-                  height: 45,
-                  borderRadius: 30,
-                  marginTop: hp("2%"),
-                },
-              ]}
-              onPress={() => router.navigate("/(auth)/signup")}
-            >
-              <Text style={LoginStyle.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
-
-            <View style={{ marginTop: 28 }}>
-              <Text style={LoginStyle.thinText}>or sign up with</Text>
-              <View
-                style={{
-                  marginTop: 20,
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Image
-                  source={require("../../assets/images/Facebook.svg")}
-                  style={{ width: 32, height: 32 }}
-                ></Image>
-                <Image
-                  source={require("../../assets/images/Google.svg")}
-                  style={{ width: 32, height: 32 }}
-                ></Image>
-              </View>
-            </View>
-            <Text style={[LoginStyle.thinText, { marginTop: 20 }]}>
-              Don’t have an account?{" "}
-              <Link href="/(auth)/signup" style={{ color: COLORS.deepPink }}>
-                Sign Up
-              </Link>
-            </Text>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeScreen>
   );
 }

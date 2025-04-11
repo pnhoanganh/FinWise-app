@@ -5,6 +5,7 @@ import SafeScreen from "@/components/SafeScreen";
 import { Image } from "expo-image";
 import COLORS from "@/constants/color";
 import ProgressBar from "../../components/ProgressBar";
+import TransactionItem from "@/components/TransactionItem";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -138,6 +139,53 @@ export default function Home() {
                   </View>
                 </View>
               </View>
+            </View>
+            {/* MENU */}
+            <View style={HomeStyles.menuGroup}>
+              <View style={HomeStyles.menuItem}>
+                <Text style={HomeStyles.menuText}>Daily</Text>
+              </View>
+              <View style={HomeStyles.menuItem}>
+                <Text style={HomeStyles.menuText}>Weekly</Text>
+              </View>
+              <View
+                style={[
+                  HomeStyles.menuItem,
+                  { backgroundColor: COLORS.mainPink },
+                ]}
+              >
+                <Text style={HomeStyles.menuText}>Monthly</Text>
+              </View>
+            </View>
+            {/* TRASACTION ITEM */}
+            <View>
+              <TransactionItem
+                icon={require("../../assets/images/Salary.svg")}
+                widthIcon={wp("7%")}
+                heightIcon={wp("7%")}
+                title="Salary"
+                date="18:27 - April 30"
+                frequency="Monthly"
+                amount="$4.000,00"
+              />
+              <TransactionItem
+                icon={require("../../assets/images/market.svg")}
+                widthIcon={wp("5%")}
+                heightIcon={wp("8%")}
+                title="Groceries"
+                date="17:00 - April 24"
+                frequency="Pantry"
+                amount="-$100,00"
+              />
+              <TransactionItem
+                icon={require("../../assets/images/rent.svg")}
+                widthIcon={wp("8%")}
+                heightIcon={wp("7%")}
+                title="Rent"
+                date="8:30 - April 15"
+                frequency="Rent"
+                amount="-$674,40"
+              />
             </View>
           </View>
         </View>

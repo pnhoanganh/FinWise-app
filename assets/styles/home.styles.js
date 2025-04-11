@@ -144,5 +144,23 @@ const styles = StyleSheet.create({
     marginVertical: wp("3%"),
     borderRadius: 2,
   },
+  menuGroup: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: COLORS.lightGreen,
+    padding: wp("2%"),
+    width: wp("85%"),
+    borderRadius: "8%",
+    marginTop: wp("7%"),
+  },
+  menuItem: {
+    padding: wp("4%"),
+    borderRadius: "25%",
+  },
+  menuText: {
+    color: COLORS.black,
+    fontSize: wp("4%"),
+  },
 });
 export default styles;
