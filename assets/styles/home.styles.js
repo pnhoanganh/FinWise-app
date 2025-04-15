@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 66,
-    padding: wp("8%"),
+    padding: wp("6%"),
     marginVertical: 16,
     shadowColor: COLORS.black,
     shadowOffset: { width: 0, height: 2 },
@@ -150,9 +150,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: COLORS.lightGreen,
     padding: wp("2%"),
-    width: wp("85%"),
+    width: wp("90%"),
     borderRadius: "8%",
     marginTop: wp("7%"),
+    alignItems: "center",
   },
   menuItem: {
     padding: wp("4%"),
@@ -161,6 +162,11 @@ const styles = StyleSheet.create({
   menuText: {
     color: COLORS.black,
     fontSize: wp("4%"),
+  },
+  transactionGroup: {
+    display: "flex",
+    width: wp("95%"),
+    alignItems: "center",
   },
 });
 export default styles;

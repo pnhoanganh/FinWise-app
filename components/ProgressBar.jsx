@@ -5,7 +5,7 @@ import {
 } from "react-native-responsive-screen";
 import COLORS from "@/constants/color";
 
-const ProgressBar = ({ percentage = 30, amount = 20000 }) => {
+const ProgressBar = ({ percentage, amount }) => {
   return (
     <View style={styles.container}>
       <View style={[styles.fill, { flex: percentage }]}>

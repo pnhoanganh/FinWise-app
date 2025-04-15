@@ -1,15 +1,15 @@
 import { Text, View, ScrollView } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Styles from "../../assets/styles/notification.styles";
-import SafeScreen from "@/components/SafeScreen";
 import { Image } from "expo-image";
 import COLORS from "@/constants/color";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
+import Styles from "../../assets/styles/notification.styles";
+import SafeScreen from "@/components/SafeScreen";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 const NotiGroup = ({ title, children }) => {
   return (
@@ -192,6 +192,7 @@ export default function NotificationScreen() {
               title="Today"
               children={[
                 <Noti
+                  key={Math.random()}
                   icon={require("../../assets/images/noti.svg")}
                   widthIcon={wp("6%")}
                   heightIcon={wp("8%")}
@@ -200,6 +201,7 @@ export default function NotificationScreen() {
                   time="17:00 - April 24"
                 ></Noti>,
                 <Noti
+                  key={Math.random()}
                   icon={require("../../assets/images/new.svg")}
                   widthIcon={wp("7.5%")}
                   heightIcon={wp("7.3%")}
@@ -214,6 +216,7 @@ export default function NotificationScreen() {
               title="Yesterday"
               children={[
                 <Transaction
+                  key={Math.random()}
                   icon={require("../../assets/images/money.svg")}
                   widthIcon={wp("4%")}
                   heightIcon={wp("9%")}
@@ -223,12 +226,13 @@ export default function NotificationScreen() {
                   time="17:00 - April 23"
                 ></Transaction>,
                 <Noti
+                  key={Math.random()}
                   icon={require("../../assets/images/noti.svg")}
                   widthIcon={wp("6%")}
                   heightIcon={wp("8%")}
                   title="Reminder!"
                   text="Set up your automatic savings to meet your savings goal..."
-                  time="17:00 - April 24"
+                  time="17:00 - April 23"
                 ></Noti>,
               ]}
             ></NotiGroup>
@@ -236,6 +240,7 @@ export default function NotificationScreen() {
               title="This week"
               children={[
                 <Noti
+                  key={Math.random()}
                   icon={require("../../assets/images/down.svg")}
                   widthIcon={wp("6%")}
                   heightIcon={wp("5%")}
@@ -244,6 +249,7 @@ export default function NotificationScreen() {
                   time="17:00 - April 23"
                 ></Noti>,
                 <Transaction
+                  key={Math.random()}
                   icon={require("../../assets/images/money.svg")}
                   widthIcon={wp("4%")}
                   heightIcon={wp("9%")}

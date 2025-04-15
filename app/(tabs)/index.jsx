@@ -1,18 +1,126 @@
-import { Text, View, ScrollView } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import HomeStyles from "../../assets/styles/home.styles";
-import SafeScreen from "@/components/SafeScreen";
+import { useState } from "react";
+import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
-import COLORS from "@/constants/color";
-import ProgressBar from "../../components/ProgressBar";
-import TransactionItem from "@/components/TransactionItem";
+import { Link, router } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Link, router } from "expo-router";
+import COLORS from "@/constants/color";
+import HomeStyles from "../../assets/styles/home.styles";
+import SafeScreen from "@/components/SafeScreen";
+import ProgressBar from "../../components/ProgressBar";
+import TransactionItem from "@/components/TransactionItem";
 
 export default function Home() {
+  // TABS DATA
+  const [activeTab, setActiveTab] = useState("daily");
+  const tabs = [
+    { id: "daily", label: "Daily" },
+    { id: "weekly", label: "Weekly" },
+    { id: "monthly", label: "Monthly" },
+  ];
+
+  // HEADER DATA
+  /**
+   * Automatic timeGreeting
+   */
+  const automaticTime = () => {
+    const hours = new Date().getHours();
+
+    if (hours < 12) {
+      return "Good Morning";
+    } else if (hours < 18) {
+      return "Good Afternoon";
+    } else {
+      return "Good Evening";
+    }
+  };
+  const headerData = {
+    greeting: "Hi, Welcome Back",
+    timeGreeting: automaticTime(),
+  };
+
+  // TRANSACTION DATA
+  const transactionData = {
+    daily: [
+      {
+        icon: require("@/assets/images/market.svg"),
+        widthIcon: wp("5%"),
+        heightIcon: wp("8%"),
+        title: "Coffee",
+        date: "09:00 - April 15",
+        frequency: "Daily",
+        amount: "-$5.00",
+      },
+      {
+        icon: require("@/assets/images/Food.svg"),
+        widthIcon: wp("6.5%"),
+        heightIcon: wp("11%"),
+        title: "Snacks",
+        date: "11:30 - April 15",
+        frequency: "Daily",
+        amount: "-$3.50",
+      },
+    ],
+    weekly: [
+      {
+        icon: require("@/assets/images/Salary.svg"),
+        widthIcon: wp("7%"),
+        heightIcon: wp("7%"),
+        title: "Freelance",
+        date: "10:00 - April 14",
+        frequency: "Weekly",
+        amount: "$500.00",
+      },
+      {
+        icon: require("@/assets/images/market.svg"),
+        widthIcon: wp("5%"),
+        heightIcon: wp("8%"),
+        title: "Groceries",
+        date: "17:00 - April 12",
+        frequency: "Pantry",
+        amount: "-$60.00",
+      },
+    ],
+    monthly: [
+      {
+        icon: require("@/assets/images/Salary.svg"),
+        widthIcon: wp("7%"),
+        heightIcon: wp("7%"),
+        title: "Salary",
+        date: "18:27 - April 30",
+        frequency: "Monthly",
+        amount: "$4,000.00",
+      },
+      {
+        icon: require("@/assets/images/market.svg"),
+        widthIcon: wp("5%"),
+        heightIcon: wp("8%"),
+        title: "Groceries",
+        date: "17:00 - April 24",
+        frequency: "Pantry",
+        amount: "-$100.00",
+      },
+      {
+        icon: require("@/assets/images/rent.svg"),
+        widthIcon: wp("8%"),
+        heightIcon: wp("7%"),
+        title: "Rent",
+        date: "8:30 - April 15",
+        frequency: "Rent",
+        amount: "-$674.40",
+      },
+    ],
+  };
+
+  // FINANCE DATA
+  const financeData = {
+    totalBalance: 7783.0,
+    totalExpense: 1187.4,
+  };
+
   return (
     <SafeScreen>
       <ScrollView>
@@ -21,9 +129,9 @@ export default function Home() {
           <View style={HomeStyles.header}>
             <View>
               <Text style={{ fontSize: 20, fontWeight: 600 }}>
-                Hi, Welcome Back
+                {headerData.greeting}
               </Text>
-              <Text style={{ fontSize: 14 }}>Good Morning</Text>
+              <Text style={{ fontSize: 14 }}>{headerData.timeGreeting}</Text>
             </View>
             <Link href="/(screens)/notification">
               <Ionicons name="notifications" size={24} color="black" />
@@ -41,7 +149,10 @@ export default function Home() {
                 <Text style={HomeStyles.text}>Total Balance</Text>
               </View>
               <Text style={[HomeStyles.boldText, { marginTop: 2 }]}>
-                $7,783.00
+                $
+                {financeData.totalBalance.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                })}
               </Text>
             </View>
             <View
@@ -67,7 +178,10 @@ export default function Home() {
                   { marginTop: 2, color: COLORS.darkGreen },
                 ]}
               >
-                -$1.187.40
+                -$
+                {financeData.totalExpense.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                })}
               </Text>
             </View>
           </View>
@@ -145,50 +259,38 @@ export default function Home() {
             </View>
             {/* MENU */}
             <View style={HomeStyles.menuGroup}>
-              <View style={HomeStyles.menuItem}>
-                <Text style={HomeStyles.menuText}>Daily</Text>
-              </View>
-              <View style={HomeStyles.menuItem}>
-                <Text style={HomeStyles.menuText}>Weekly</Text>
-              </View>
-              <View
-                style={[
-                  HomeStyles.menuItem,
-                  { backgroundColor: COLORS.mainPink },
-                ]}
-              >
-                <Text style={HomeStyles.menuText}>Monthly</Text>
-              </View>
+              {tabs.map((tab) => (
+                <TouchableOpacity
+                  key={tab.id}
+                  style={[
+                    HomeStyles.menuItem,
+                    {
+                      backgroundColor:
+                        activeTab === tab.id
+                          ? COLORS.mainPink
+                          : COLORS.lightGray,
+                    },
+                  ]}
+                  onPress={() => setActiveTab(tab.id)}
+                >
+                  <Text style={HomeStyles.menuText}> {tab.label}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
             {/* TRASACTION ITEM */}
-            <View>
-              <TransactionItem
-                icon={require("../../assets/images/Salary.svg")}
-                widthIcon={wp("7%")}
-                heightIcon={wp("7%")}
-                title="Salary"
-                date="18:27 - April 30"
-                frequency="Monthly"
-                amount="$4.000,00"
-              />
-              <TransactionItem
-                icon={require("../../assets/images/market.svg")}
-                widthIcon={wp("5%")}
-                heightIcon={wp("8%")}
-                title="Groceries"
-                date="17:00 - April 24"
-                frequency="Pantry"
-                amount="-$100,00"
-              />
-              <TransactionItem
-                icon={require("../../assets/images/rent.svg")}
-                widthIcon={wp("8%")}
-                heightIcon={wp("7%")}
-                title="Rent"
-                date="8:30 - April 15"
-                frequency="Rent"
-                amount="-$674,40"
-              />
+            <View style={HomeStyles.transactionGroup}>
+              {transactionData[activeTab].map((item, index) => (
+                <TransactionItem
+                  key={index}
+                  icon={item.icon}
+                  widthIcon={item.widthIcon}
+                  heightIcon={item.heightIcon}
+                  title={item.title}
+                  date={item.date}
+                  frequency={item.frequency}
+                  amount={item.amount}
+                />
+              ))}
             </View>
           </View>
         </View>
