@@ -319,6 +319,9 @@ export default function Analysis() {
                     justifyContent: "center",
                     borderRadius: "50%",
                   }}
+                  onPress={() => {
+                    router.navigate("/(screens)/calenderAnlysis");
+                  }}
                 >
                   <Image
                     source={require("../../assets/images/calender.svg")}
