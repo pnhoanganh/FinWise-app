@@ -4,16 +4,16 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     paddingTop: hp("3%"),
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    gap: 50,
     marginHorizontal: wp("10%"),
   },
   text: {
@@ -26,18 +26,19 @@ const styles = StyleSheet.create({
   totalHeader: {
     display: "flex",
     flexDirection: "row",
-    gap: 3,
+    gap: wp("1%"),
     alignItems: "center",
   },
   totalContainer: {
     marginHorizontal: wp("14%"),
-    marginTop: wp("8%"),
+    marginTop: hp("4%"),
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
   card: {
+    flex: 1,
     borderRadius: 66,
     padding: wp("8%"),
     marginVertical: 16,
@@ -47,26 +48,23 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
     backgroundColor: COLORS.greenWhite,
-    height: "100%",
-    marginTop: wp("8%"),
+    marginTop: hp("2%"),
   },
   box: {
     backgroundColor: COLORS.darkGreen,
-    width: wp("85%"),
-    height: wp("60%"),
+    width: wp("84%"),
     borderRadius: 31,
-    gap: wp("5%"),
-    marginTop: wp("5%"),
+    gap: hp("3%"),
+    marginTop: hp("3%"),
     padding: wp("5%"),
   },
-
   menuGroup: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: COLORS.lightGreen,
     padding: wp("2%"),
-    width: wp("85%"),
+    width: wp("84%"),
     borderRadius: "8%",
   },
   menuItem: {
@@ -77,5 +75,18 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     fontSize: wp("4%"),
   },
+  categoryChartGroup: {
+    display: "flex",
+    flexDirection: "row",
+    gap: wp("3%"),
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  categoryChart: {
+    backgroundColor: COLORS.mainPink,
+    borderRadius: wp("50%") / 5,
+  },
 });
+
 export default styles;

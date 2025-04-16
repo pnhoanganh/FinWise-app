@@ -5,10 +5,6 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    paddingTop: hp("3%"),
-  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -37,23 +33,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  card: {
-    borderRadius: 66,
-    padding: wp("6%"),
-    marginVertical: 16,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-    backgroundColor: COLORS.greenWhite,
-    height: "100%",
-    marginTop: wp("8%"),
-    alignItems: "center",
-  },
   box: {
     backgroundColor: COLORS.darkGreen,
-    width: wp("85%"),
     height: wp("40%"),
     borderRadius: 31,
     display: "flex",
@@ -150,10 +131,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: COLORS.lightGreen,
     padding: wp("2%"),
-    width: wp("90%"),
     borderRadius: "8%",
     marginTop: wp("7%"),
-    alignItems: "center",
   },
   menuItem: {
     padding: wp("4%"),
@@ -165,7 +144,6 @@ const styles = StyleSheet.create({
   },
   transactionGroup: {
     display: "flex",
-    width: wp("95%"),
     alignItems: "center",
   },
 });

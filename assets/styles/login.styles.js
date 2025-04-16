@@ -16,8 +16,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.greenWhite,
     borderTopLeftRadius: 70,
     borderTopRightRadius: 70,
-    marginVertical: hp("1%"),
-    width: "100%",
     height: "100%",
     paddingVertical: 20,
     paddingHorizontal: 40,
@@ -85,6 +83,8 @@ const styles = StyleSheet.create({
     flex: 1,
     height: hp("5%"),
     color: COLORS.textPrimary,
+    paddingHorizontal: 10,
+    fontSize: 16,
   },
 
   placeholderContainer: {

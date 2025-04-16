@@ -1,4 +1,5 @@
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView, Animated } from "react-native";
+import { useRef } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Image } from "expo-image";
 import COLORS from "@/constants/color";
@@ -166,102 +167,109 @@ const Transaction = ({
 
 export default function NotificationScreen() {
   const navigation = useNavigation();
+  const scrollOffsetY = useRef(new Animated.Value(0)).current;
   return (
     <SafeScreen>
-      <View>
-        <View style={Styles.container}>
-          {/* HEADER */}
-          <View style={Styles.header}>
-            <AntDesign
-              name="arrowleft"
-              size={24}
-              color="black"
-              onPress={() => navigation.goBack()}
-            />
-            <View>
-              <Text style={{ fontSize: 20, fontWeight: 600 }}>
-                Notification
-              </Text>
-            </View>
-            <Ionicons name="notifications" size={24} color="black" />
+      <View style={Styles.container}>
+        {/* HEADER */}
+        <View style={Styles.header}>
+          <AntDesign
+            name="arrowleft"
+            size={24}
+            color="black"
+            onPress={() => navigation.goBack()}
+          />
+          <View>
+            <Text style={{ fontSize: 20, fontWeight: 600 }}>Notification</Text>
           </View>
-
-          {/* CARD */}
-          <ScrollView style={Styles.card}>
-            <NotiGroup
-              title="Today"
-              children={[
-                <Noti
-                  key={Math.random()}
-                  icon={require("../../assets/images/noti.svg")}
-                  widthIcon={wp("6%")}
-                  heightIcon={wp("8%")}
-                  title="Reminder!"
-                  text="Set up your automatic savings to meet your savings goal..."
-                  time="17:00 - April 24"
-                ></Noti>,
-                <Noti
-                  key={Math.random()}
-                  icon={require("../../assets/images/new.svg")}
-                  widthIcon={wp("7.5%")}
-                  heightIcon={wp("7.3%")}
-                  title="New update"
-                  text="Set up your automatic savings to meet your savings goal..."
-                  time="17:00 - April 24"
-                ></Noti>,
-              ]}
-            ></NotiGroup>
-
-            <NotiGroup
-              title="Yesterday"
-              children={[
-                <Transaction
-                  key={Math.random()}
-                  icon={require("../../assets/images/money.svg")}
-                  widthIcon={wp("4%")}
-                  heightIcon={wp("9%")}
-                  title="Transactions"
-                  text="A new transaction has been registered"
-                  info="Groceries |  pantry  |  -$100,00"
-                  time="17:00 - April 23"
-                ></Transaction>,
-                <Noti
-                  key={Math.random()}
-                  icon={require("../../assets/images/noti.svg")}
-                  widthIcon={wp("6%")}
-                  heightIcon={wp("8%")}
-                  title="Reminder!"
-                  text="Set up your automatic savings to meet your savings goal..."
-                  time="17:00 - April 23"
-                ></Noti>,
-              ]}
-            ></NotiGroup>
-            <NotiGroup
-              title="This week"
-              children={[
-                <Noti
-                  key={Math.random()}
-                  icon={require("../../assets/images/down.svg")}
-                  widthIcon={wp("6%")}
-                  heightIcon={wp("5%")}
-                  title="Expense record"
-                  text="We recommend that you be more attentive to your finances."
-                  time="17:00 - April 23"
-                ></Noti>,
-                <Transaction
-                  key={Math.random()}
-                  icon={require("../../assets/images/money.svg")}
-                  widthIcon={wp("4%")}
-                  heightIcon={wp("9%")}
-                  title="Transactions"
-                  text="A new transaction has been registered"
-                  info="Food |  Dinner  |  -$70,40"
-                  time="17:00 - April 23"
-                ></Transaction>,
-              ]}
-            ></NotiGroup>
-          </ScrollView>
+          <Ionicons name="notifications" size={24} color="black" />
         </View>
+
+        {/* CARD */}
+        <ScrollView
+          scrollEventThrottle={5}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          style={[Styles.card, { maxHeight: undefined }]}
+          contentContainerStyle={{ paddingBottom: hp("20%") }}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
+            { useNativeDriver: false }
+          )}
+        >
+          <NotiGroup
+            title="Today"
+            children={[
+              <Noti
+                key={Math.random()}
+                icon={require("../../assets/images/noti.svg")}
+                widthIcon={wp("6%")}
+                heightIcon={hp("3.4%")}
+                title="Reminder!"
+                text="Set up your automatic savings to meet your savings goal..."
+                time="17:00 - April 24"
+              ></Noti>,
+              <Noti
+                key={Math.random()}
+                icon={require("../../assets/images/new.svg")}
+                widthIcon={wp("7.5%")}
+                heightIcon={hp("3.3%")}
+                title="New update"
+                text="Set up your automatic savings to meet your savings goal..."
+                time="17:00 - April 24"
+              ></Noti>,
+            ]}
+          ></NotiGroup>
+
+          <NotiGroup
+            title="Yesterday"
+            children={[
+              <Transaction
+                key={Math.random()}
+                icon={require("../../assets/images/money.svg")}
+                widthIcon={wp("4%")}
+                heightIcon={hp("4%")}
+                title="Transactions"
+                text="A new transaction has been registered"
+                info="Groceries |  pantry  |  -$100,00"
+                time="17:00 - April 23"
+              ></Transaction>,
+              <Noti
+                key={Math.random()}
+                icon={require("../../assets/images/noti.svg")}
+                widthIcon={wp("6%")}
+                heightIcon={hp("3.4%")}
+                title="Reminder!"
+                text="Set up your automatic savings to meet your savings goal..."
+                time="17:00 - April 23"
+              ></Noti>,
+            ]}
+          ></NotiGroup>
+          <NotiGroup
+            title="This week"
+            children={[
+              <Noti
+                key={Math.random()}
+                icon={require("../../assets/images/down.svg")}
+                widthIcon={wp("6%")}
+                heightIcon={hp("2.5%")}
+                title="Expense record"
+                text="We recommend that you be more attentive to your finances."
+                time="17:00 - April 23"
+              ></Noti>,
+              <Transaction
+                key={Math.random()}
+                icon={require("../../assets/images/money.svg")}
+                widthIcon={wp("4%")}
+                heightIcon={hp("4%")}
+                title="Transactions"
+                text="A new transaction has been registered"
+                info="Food |  Dinner  |  -$70,40"
+                time="17:00 - April 23"
+              ></Transaction>,
+            ]}
+          ></NotiGroup>
+        </ScrollView>
       </View>
     </SafeScreen>
   );
