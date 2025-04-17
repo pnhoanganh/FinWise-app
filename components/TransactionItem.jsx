@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginHorizontal: wp("4%"),
     marginVertical: wp("3%"),
+    width: "100%",
   },
   iconWrapper: {
     width: wp("14%"),

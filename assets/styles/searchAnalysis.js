@@ -30,5 +30,20 @@ const styles = StyleSheet.create({
     width: wp("30%"),
     borderRadius: wp("15%"),
   },
+  calendar: {
+    borderRadius: 10, // Adds border radius to the entire calendar
+    backgroundColor: COLORS.greenWhite, // Matches your theme
+    padding: 10,
+  },
+  btn: {
+    // backgroundColor: COLORS.lightGreen,
+    borderRadius: 999,
+    width: wp("35%"),
+    height: hp("4%"),
+    maxWidth: wp("50%"),
+    maxHeight: hp("6%"),
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 export default styles;

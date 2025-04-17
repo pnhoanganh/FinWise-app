@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
   transactionGroup: {
     display: "flex",
     alignItems: "center",
+    width: "100%",
   },
 });
 export default styles;

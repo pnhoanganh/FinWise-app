@@ -1,6 +1,7 @@
 const COLORS = {
   mainPink: "#E7CCCC",
   deepPink: "#EBA0C9",
+  lightPink: "#FFEDFA",
   textPrimary: "#093030",
   textSecondary: "#A9A9A9",
   lightGreen: "#DFF7E2",
