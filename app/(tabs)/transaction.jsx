@@ -25,13 +25,9 @@ const calculateTotals = (data) => {
 
   data.sumary.forEach((group) => {
     group.transaction.forEach((transaction) => {
-      // Remove '$' and replace commas with periods, remove thousands separators
-      let amountStr = transaction.amount.replace("$", "").replace(",", ".");
-      // Remove thousands separator if it exists (e.g., "4.000" -> "4000")
-      amountStr = amountStr.replace(/(\d+)\.(\d{3})/, "$1$2");
+      let amountStr = transaction.amount.replace("$", "").replace(",", "");
       const amount = parseFloat(amountStr);
 
-      // Skip if amount is NaN
       if (isNaN(amount)) {
         console.warn(`Invalid amount detected: ${transaction.amount}`);
         return;
@@ -59,10 +55,54 @@ const calculateTotals = (data) => {
     }),
   };
 };
+
+// Filter income transactions (positive amounts)
+const getIncomeTransactions = (sumary) => {
+  const incomeGroups = {};
+
+  sumary.forEach((group) => {
+    const incomeTransactions = group.transaction.filter((t) => {
+      const amount = parseFloat(t.amount.replace("$", "").replace(",", ""));
+      return amount > 0;
+    });
+
+    if (incomeTransactions.length > 0) {
+      incomeGroups[group.month] = {
+        month: group.month,
+        transaction: incomeTransactions,
+      };
+    }
+  });
+
+  return Object.values(incomeGroups);
+};
+
+// Filter expense transactions (negative amounts)
+const getExpenseTransactions = (sumary) => {
+  const expenseGroups = {};
+
+  sumary.forEach((group) => {
+    const expenseTransactions = group.transaction.filter((t) => {
+      const amount = parseFloat(t.amount.replace("$", "").replace(",", ""));
+      return amount < 0;
+    });
+
+    if (expenseTransactions.length > 0) {
+      expenseGroups[group.month] = {
+        month: group.month,
+        transaction: expenseTransactions,
+      };
+    }
+  });
+
+  return Object.values(expenseGroups);
+};
+
 export default function Transaction() {
   const navigation = useNavigation();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const [activeTab, setActiveTab] = useState("sumary");
+
   const transactionData = {
     sumary: [
       {
@@ -102,14 +142,14 @@ export default function Transaction() {
             title: "Groceries",
             date: "17:00 - April 12",
             frequency: "Pantry",
-            amount: "-$1,600",
+            amount: "-$1600",
           },
           {
             icon: require("@/assets/images/transport.svg"),
             widthIcon: wp("8%"),
             heightIcon: wp("8%"),
             title: "Transport",
-            date: "09:00 - March 15",
+            date: "09:00 - April 15",
             frequency: "Daily",
             amount: "-$150",
           },
@@ -142,142 +182,18 @@ export default function Transaction() {
             heightIcon: wp("7%"),
             title: "Freelance",
             date: "10:00 - March 14",
-            frequency: "Weekly",
+            frequency: "Monthly",
             amount: "$15,500",
           },
         ],
       },
     ],
-    incomeTab: [
-      {
-        month: "April",
-        transaction: [
-          {
-            icon: require("@/assets/images/Salary.svg"),
-            widthIcon: wp("7%"),
-            heightIcon: wp("7%"),
-            title: "Freelance",
-            date: "10:00 - April 14",
-            frequency: "Monthly",
-            amount: "$1000.00",
-          },
-          {
-            icon: require("@/assets/images/Salary.svg"),
-            widthIcon: wp("7%"),
-            heightIcon: wp("7%"),
-            title: "Other",
-            date: "17:00 - April 24",
-            frequency: "Payment",
-            amount: "$120,00",
-          },
-        ],
-      },
-      {
-        month: "March",
-        transaction: [
-          {
-            icon: require("@/assets/images/Salary.svg"),
-            widthIcon: wp("7%"),
-            heightIcon: wp("7%"),
-            title: "Freelance",
-            date: "18:39 - March 31",
-            frequency: "Monthly",
-            amount: "$4.000,00",
-          },
-          {
-            icon: require("@/assets/images/Salary.svg"),
-            widthIcon: wp("7%"),
-            heightIcon: wp("7%"),
-            title: "Other",
-            date: "17:00 - March 24",
-            frequency: "Upwork",
-            amount: "$340,00",
-          },
-        ],
-      },
-      {
-        month: "February",
-        transaction: [
-          {
-            icon: require("@/assets/images/Salary.svg"),
-            widthIcon: wp("7%"),
-            heightIcon: wp("7%"),
-            title: "Freelance",
-            date: "10:00 - February 14",
-            frequency: "Monthly",
-            amount: "$1000.00",
-          },
-          {
-            icon: require("@/assets/images/Salary.svg"),
-            widthIcon: wp("7%"),
-            heightIcon: wp("7%"),
-            title: "Other",
-            date: "17:00 - February 4",
-            frequency: "Payment",
-            amount: "$120,00",
-          },
-        ],
-      },
-    ],
-    expenseTab: [
-      {
-        month: "April",
-        transaction: [
-          {
-            icon: require("@/assets/images/market.svg"),
-            widthIcon: wp("5%"),
-            heightIcon: wp("8%"),
-            title: "Groceries",
-            date: "17:00 - April 24",
-            frequency: "Pantry",
-            amount: "-$100,00",
-          },
-          {
-            icon: require("@/assets/images/rent.svg"),
-            widthIcon: wp("8%"),
-            heightIcon: wp("7%"),
-            title: "Rent",
-            date: "8:30 - April 15",
-            frequency: "Rent",
-            amount: "-$60.00",
-          },
-          {
-            icon: require("@/assets/images/transport.svg"),
-            widthIcon: wp("8%"),
-            heightIcon: wp("8%"),
-            title: "Transport",
-            date: "7:30 - April 08",
-            frequency: "Fuel",
-            amount: "-$4,13",
-          },
-        ],
-      },
-      {
-        month: "March",
-        transaction: [
-          {
-            icon: require("@/assets/images/transport.svg"),
-            widthIcon: wp("8%"),
-            heightIcon: wp("8%"),
-            title: "Transport",
-            date: "09:00 - March 15",
-            frequency: "Daily",
-            amount: "-$5.00",
-          },
-          {
-            icon: require("@/assets/images/Food.svg"),
-            widthIcon: wp("6.5%"),
-            heightIcon: wp("11%"),
-            title: "Food",
-            date: "19:30 - March 31",
-            frequency: "Dinner",
-            amount: "-$70,40",
-          },
-        ],
-      },
-    ],
   };
+
   const calculateData = calculateTotals(transactionData);
+  const incomeData = getIncomeTransactions(transactionData.sumary);
+  const expenseData = getExpenseTransactions(transactionData.sumary);
+
   return (
     <SafeScreen>
       <View style={AnalysisStyles.container}>
@@ -322,7 +238,7 @@ export default function Transaction() {
               ${calculateData.totalBalance}
             </Text>
           </TouchableOpacity>
-          <View className=" flex flex-row mt-4 justify-between">
+          <View className="flex flex-row mt-4 justify-between">
             {/* INCOME */}
             <TouchableOpacity
               onPress={() => {
@@ -437,7 +353,7 @@ export default function Transaction() {
             {activeTab === "sumary"
               ? transactionData.sumary.map((group, index) => (
                   <View key={index}>
-                    <Text className=" font-medium text-lg">{group.month}</Text>
+                    <Text className="font-medium text-lg">{group.month}</Text>
                     <View className="my-4">
                       {group.transaction.map((transactionData, index) => (
                         <TransactionItem
@@ -455,9 +371,9 @@ export default function Transaction() {
                   </View>
                 ))
               : activeTab === "incomeTab"
-              ? transactionData.incomeTab.map((group, index) => (
+              ? incomeData.map((group, index) => (
                   <View key={index}>
-                    <Text className=" font-medium text-lg">{group.month}</Text>
+                    <Text className="font-medium text-lg">{group.month}</Text>
                     <View className="my-4">
                       {group.transaction.map((transactionData, index) => (
                         <TransactionItem
@@ -474,9 +390,9 @@ export default function Transaction() {
                     </View>
                   </View>
                 ))
-              : transactionData.expenseTab.map((group, index) => (
+              : expenseData.map((group, index) => (
                   <View key={index}>
-                    <Text className=" font-medium text-lg">{group.month}</Text>
+                    <Text className="font-medium text-lg">{group.month}</Text>
                     <View className="my-4">
                       {group.transaction.map((transactionData, index) => (
                         <TransactionItem
