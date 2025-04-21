@@ -144,9 +144,34 @@ export default function Analysis() {
     percentageOfExpenses: 30,
   };
 
-  const pieData = [];
-
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
+
+  const categoryProgressData = [
+    {
+      percentage: 30,
+      title: "Travel",
+      pieData: [
+        { value: 30, color: COLORS.darkGreen },
+        { value: 70, color: COLORS.greenWhite },
+      ],
+    },
+    {
+      percentage: 40,
+      title: "Education",
+      pieData: [
+        { value: 40, color: COLORS.darkGreen },
+        { value: 60, color: COLORS.greenWhite },
+      ],
+    },
+    {
+      percentage: 20,
+      title: "Car",
+      pieData: [
+        { value: 20, color: COLORS.darkGreen },
+        { value: 80, color: COLORS.greenWhite },
+      ],
+    },
+  ];
 
   return (
     <SafeScreen>
@@ -425,36 +450,15 @@ export default function Analysis() {
           >
             <Text style={{ fontSize: hp("2%") }}>My targets</Text>
             <View style={AnalysisStyles.categoryChartGroup}>
-              <View style={AnalysisStyles.categoryChart}>
-                <CategoryProgressCard
-                  percentage={30}
-                  title="Travel"
-                  pieData={[
-                    { value: 30, color: COLORS.darkGreen },
-                    { value: 70, color: COLORS.greenWhite },
-                  ]}
-                />
-              </View>
-              <View style={AnalysisStyles.categoryChart}>
-                <CategoryProgressCard
-                  percentage={40}
-                  title="Food"
-                  pieData={[
-                    { value: 40, color: COLORS.darkGreen },
-                    { value: 60, color: COLORS.greenWhite },
-                  ]}
-                />
-              </View>
-              <View style={AnalysisStyles.categoryChart}>
-                <CategoryProgressCard
-                  percentage={50}
-                  title="Enducation"
-                  pieData={[
-                    { value: 50, color: COLORS.darkGreen },
-                    { value: 50, color: COLORS.greenWhite },
-                  ]}
-                />
-              </View>
+              {categoryProgressData.map((catetory, index) => (
+                <View key={index} style={AnalysisStyles.categoryChart}>
+                  <CategoryProgressCard
+                    percentage={catetory.percentage}
+                    title={catetory.title}
+                    pieData={catetory.pieData}
+                  />
+                </View>
+              ))}
             </View>
           </View>
         </ScrollView>
