@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import COLORS from "@/constants/color";
+import iconMapper from "@/constants/iconMapper";
 
 const TransactionItem = ({
   icon,
@@ -27,7 +28,7 @@ const TransactionItem = ({
           ]}
         >
           <Image
-            source={icon}
+            source={iconMapper[icon]}
             style={{ width: widthIcon, height: heightIcon }}
           />
         </View>

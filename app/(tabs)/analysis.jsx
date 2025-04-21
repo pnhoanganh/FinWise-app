@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Text,
   View,
@@ -18,34 +18,10 @@ import AnalysisStyles from "@/assets/styles/analysis.styles";
 import ProgressBar from "@/components/ProgressBar";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { BarChart, PieChart } from "react-native-gifted-charts";
-
-const CategoryProgressCard = ({ percentage, title, pieData }) => {
-  return (
-    <View
-      style={{
-        alignItems: "center",
-        paddingVertical: wp("4%"),
-        paddingHorizontal: wp("5%"),
-        gap: wp("2%"),
-      }}
-    >
-      <View>
-        <PieChart
-          donut
-          innerRadius={hp("6%")}
-          radius={hp("7%")}
-          innerCircleColor={COLORS.mainPink}
-          data={pieData}
-          centerLabelComponent={() => {
-            return <Text style={{ fontSize: wp("4%") }}>{percentage}%</Text>;
-          }}
-        />
-      </View>
-      <Text style={{ fontSize: wp("4%") }}>{title}</Text>
-    </View>
-  );
-};
+import { BarChart } from "react-native-gifted-charts";
+import barChartData from "@/assets/data/analysisData/barChartData.json";
+import pieChartData from "@/assets/data/analysisData/targetPieChartData.json";
+import TargetProgressCard from "@/components/TargetProgressCard";
 
 export default function Analysis() {
   const navigation = useNavigation();
@@ -58,73 +34,15 @@ export default function Analysis() {
     { id: "yearly", label: "Yearly" },
   ];
 
-  // DATA
-  const barChartData = {
-    daily: [
-      { value: 2500, frontColor: COLORS.deepPink, spacing: 6, label: "Mon" },
-      { value: 4000, frontColor: COLORS.bagie },
-      { value: 5000, frontColor: COLORS.deepPink, spacing: 6, label: "Tue" },
-      { value: 3000, frontColor: COLORS.bagie },
-      { value: 4500, frontColor: COLORS.deepPink, spacing: 6, label: "Wed" },
-      { value: 4000, frontColor: COLORS.bagie },
-      { value: 2000, frontColor: COLORS.deepPink, spacing: 6, label: "Thu" },
-      { value: 3500, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "Fri" },
-      { value: 2800, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "Sat" },
-      { value: 2800, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "Sun" },
-      { value: 2800, frontColor: COLORS.bagie },
-    ],
-    weekly: [
-      { value: 8000, frontColor: COLORS.deepPink, spacing: 6, label: "1st" },
-      { value: 7000, frontColor: COLORS.bagie },
-      { value: 7500, frontColor: COLORS.deepPink, spacing: 6, label: "2nd" },
-      { value: 6000, frontColor: COLORS.bagie },
-      { value: 9500, frontColor: COLORS.deepPink, spacing: 6, label: "3rd" },
-      { value: 8000, frontColor: COLORS.bagie },
-      { value: 12000, frontColor: COLORS.deepPink, spacing: 6, label: "4th" },
-      { value: 10000, frontColor: COLORS.bagie },
-    ],
-    monthly: [
-      { value: 10000, frontColor: COLORS.deepPink, spacing: 6, label: "Jan" },
-      { value: 9000, frontColor: COLORS.bagie },
-      { value: 10500, frontColor: COLORS.deepPink, spacing: 6, label: "Feb" },
-      { value: 8500, frontColor: COLORS.bagie },
-      { value: 13500, frontColor: COLORS.deepPink, spacing: 6, label: "Mar" },
-      { value: 12000, frontColor: COLORS.bagie },
-      { value: 12000, frontColor: COLORS.deepPink, spacing: 6, label: "Apr" },
-      { value: 13500, frontColor: COLORS.bagie },
-      { value: 13000, frontColor: COLORS.deepPink, spacing: 6, label: "May" },
-      { value: 12000, frontColor: COLORS.bagie },
-      { value: 13000, frontColor: COLORS.deepPink, spacing: 6, label: "Jun" },
-      { value: 2800, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "Jul" },
-      { value: 2800, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "Aug" },
-      { value: 2800, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "Sep" },
-      { value: 2800, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "Oct" },
-      { value: 2800, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "Nov" },
-      { value: 2800, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "Dec" },
-      { value: 2800, frontColor: COLORS.bagie },
-    ],
-    yearly: [
-      { value: 2500, frontColor: COLORS.deepPink, spacing: 6, label: "2019" },
-      { value: 2400, frontColor: COLORS.bagie },
-      { value: 3500, frontColor: COLORS.deepPink, spacing: 6, label: "2020" },
-      { value: 3000, frontColor: COLORS.bagie },
-      { value: 4500, frontColor: COLORS.deepPink, spacing: 6, label: "2021" },
-      { value: 4000, frontColor: COLORS.bagie },
-      { value: 2000, frontColor: COLORS.deepPink, spacing: 6, label: "2022" },
-      { value: 3500, frontColor: COLORS.bagie },
-      { value: 3000, frontColor: COLORS.deepPink, spacing: 6, label: "2023" },
-      { value: 2800, frontColor: COLORS.bagie },
-    ],
-  };
+  const [pieChart, setPieChart] = useState([]);
+  useEffect(() => {
+    setPieChart(pieChartData.categoryProgressData);
+  });
+
+  const [chartData, setCharData] = useState([]);
+  useEffect(() => {
+    setCharData(barChartData[activeTab]);
+  }, [activeTab]);
 
   // CALCULATE INCOME AND EXPENSE
   let totalIncome = 0;
@@ -145,33 +63,6 @@ export default function Analysis() {
   };
 
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
-
-  const categoryProgressData = [
-    {
-      percentage: 30,
-      title: "Travel",
-      pieData: [
-        { value: 30, color: COLORS.darkGreen },
-        { value: 70, color: COLORS.greenWhite },
-      ],
-    },
-    {
-      percentage: 40,
-      title: "Education",
-      pieData: [
-        { value: 40, color: COLORS.darkGreen },
-        { value: 60, color: COLORS.greenWhite },
-      ],
-    },
-    {
-      percentage: 20,
-      title: "Car",
-      pieData: [
-        { value: 20, color: COLORS.darkGreen },
-        { value: 80, color: COLORS.greenWhite },
-      ],
-    },
-  ];
 
   return (
     <SafeScreen>
@@ -286,7 +177,10 @@ export default function Analysis() {
                       activeTab === tab.id ? COLORS.mainPink : COLORS.lightGray,
                   },
                 ]}
-                onPress={() => setActiveTab(tab.id)}
+                onPress={() => {
+                  setActiveTab(tab.id);
+                  setCharData(barChartData[tab.id]);
+                }}
               >
                 <Text style={AnalysisStyles.menuText}>{tab.label}</Text>
               </TouchableOpacity>
@@ -356,10 +250,10 @@ export default function Analysis() {
               </View>
             </View>
 
-            {barChartData[activeTab]?.length ? (
+            {chartData.length ? (
               <View style={{ alignItems: "center", width: wp("80%") }}>
                 <BarChart
-                  data={barChartData[activeTab]}
+                  data={chartData}
                   barWidth={wp("2.2%")}
                   height={hp("18%")}
                   width={wp("54%")}
@@ -450,15 +344,22 @@ export default function Analysis() {
           >
             <Text style={{ fontSize: hp("2%") }}>My targets</Text>
             <View style={AnalysisStyles.categoryChartGroup}>
-              {categoryProgressData.map((catetory, index) => (
-                <View key={index} style={AnalysisStyles.categoryChart}>
-                  <CategoryProgressCard
-                    percentage={catetory.percentage}
-                    title={catetory.title}
-                    pieData={catetory.pieData}
-                  />
-                </View>
-              ))}
+              {pieChart.length > 0 ? (
+                pieChart.map((item, index) => (
+                  <View
+                    key={item.id || `${item.title}-${index}`}
+                    style={AnalysisStyles.categoryChart}
+                  >
+                    <TargetProgressCard
+                      percentage={item.percentage}
+                      title={item.title}
+                      pieData={item.pieData}
+                    />
+                  </View>
+                ))
+              ) : (
+                <Text>No target data available</Text>
+              )}
             </View>
           </View>
         </ScrollView>

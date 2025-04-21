@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Text,
   View,
@@ -19,6 +19,7 @@ import AnalysisStyles from "@/assets/styles/analysis.styles";
 import SafeScreen from "@/components/SafeScreen";
 import ProgressBar from "../../components/ProgressBar";
 import TransactionItem from "@/components/TransactionItem";
+import transactionData from "../../assets/data/transactions.json";
 
 export default function Home() {
   // TABS DATA
@@ -28,7 +29,52 @@ export default function Home() {
     { id: "weekly", label: "Weekly" },
     { id: "monthly", label: "Monthly" },
   ];
+  const [transaction, setTransaction] = useState([]);
+  useEffect(() => {
+    setTransaction(transactionData);
+  }, []);
 
+  const renderItem = (item, index) => (
+    <TransactionItem
+      key={item.id || `${item.title}-${item.date}-${index}`}
+      icon={item.icon}
+      widthIcon={wp(`${item.widthIcon}%`)}
+      heightIcon={wp(`${item.heightIcon}%`)}
+      title={item.title}
+      date={item.date}
+      frequency={item.frequency}
+      amount={item.amount}
+    />
+  );
+
+  // Function to calculate income and expense for a given period
+  const IncomeAndExpenseWeek = (data, period = "weekly") => {
+    let income = 0;
+    let expense = 0;
+
+    const transactions = data[period] || [];
+
+    transactions.forEach((item) => {
+      const amountStr = item.amount?.replace("$", "") || "0";
+      const amount = parseFloat(amountStr);
+
+      if (isNaN(amount)) return;
+
+      if (amount > 0) {
+        income += amount;
+      } else {
+        expense += Math.abs(amount);
+      }
+    });
+
+    return { income, expense };
+  };
+
+  // Calculate weekly income and expense
+  const { income: weeklyIncome, expense: weeklyExpense } = IncomeAndExpenseWeek(
+    transaction,
+    "weekly"
+  );
   // HEADER DATA
   /**
    * Automatic timeGreeting
@@ -47,79 +93,6 @@ export default function Home() {
   const headerData = {
     greeting: "Hi, Welcome Back",
     timeGreeting: automaticTime(),
-  };
-
-  // TRANSACTION DATA
-  const transactionData = {
-    daily: [
-      {
-        icon: require("@/assets/images/market.svg"),
-        widthIcon: wp("5%"),
-        heightIcon: wp("8%"),
-        title: "Coffee",
-        date: "09:00 - April 15",
-        frequency: "Daily",
-        amount: "-$5.00",
-      },
-      {
-        icon: require("@/assets/images/Food.svg"),
-        widthIcon: wp("6.5%"),
-        heightIcon: wp("11%"),
-        title: "Snacks",
-        date: "11:30 - April 15",
-        frequency: "Daily",
-        amount: "-$3.50",
-      },
-    ],
-    weekly: [
-      {
-        icon: require("@/assets/images/Salary.svg"),
-        widthIcon: wp("7%"),
-        heightIcon: wp("7%"),
-        title: "Freelance",
-        date: "10:00 - April 14",
-        frequency: "Weekly",
-        amount: "$500.00",
-      },
-      {
-        icon: require("@/assets/images/market.svg"),
-        widthIcon: wp("5%"),
-        heightIcon: wp("8%"),
-        title: "Groceries",
-        date: "17:00 - April 12",
-        frequency: "Pantry",
-        amount: "-$60.00",
-      },
-    ],
-    monthly: [
-      {
-        icon: require("@/assets/images/Salary.svg"),
-        widthIcon: wp("7%"),
-        heightIcon: wp("7%"),
-        title: "Salary",
-        date: "18:27 - April 30",
-        frequency: "Monthly",
-        amount: "$4,000.00",
-      },
-      {
-        icon: require("@/assets/images/market.svg"),
-        widthIcon: wp("5%"),
-        heightIcon: wp("8%"),
-        title: "Groceries",
-        date: "17:00 - April 24",
-        frequency: "Pantry",
-        amount: "-$100.00",
-      },
-      {
-        icon: require("@/assets/images/rent.svg"),
-        widthIcon: wp("8%"),
-        heightIcon: wp("7%"),
-        title: "Rent",
-        date: "8:30 - April 15",
-        frequency: "Rent",
-        amount: "-$674.40",
-      },
-    ],
   };
 
   // FINANCE DATA
@@ -256,7 +229,12 @@ export default function Home() {
                 />
                 <View>
                   <Text style={HomeStyles.label}>Revenue Last Week</Text>
-                  <Text style={HomeStyles.value}>$4.000.00</Text>
+                  <Text style={HomeStyles.value}>
+                    $
+                    {weeklyIncome.toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                    })}
+                  </Text>
                 </View>
               </View>
 
@@ -270,7 +248,12 @@ export default function Home() {
                 />
                 <View>
                   <Text style={HomeStyles.label}>Food Last Week</Text>
-                  <Text style={HomeStyles.negativeValue}>-$100.00</Text>
+                  <Text style={HomeStyles.negativeValue}>
+                    -$
+                    {weeklyExpense.toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                    })}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -295,18 +278,15 @@ export default function Home() {
           </View>
           {/* TRASACTION ITEM */}
           <View style={HomeStyles.transactionGroup}>
-            {transactionData[activeTab].map((item, index) => (
-              <TransactionItem
-                key={index}
-                icon={item.icon}
-                widthIcon={item.widthIcon}
-                heightIcon={item.heightIcon}
-                title={item.title}
-                date={item.date}
-                frequency={item.frequency}
-                amount={item.amount}
-              />
-            ))}
+            {transaction[activeTab]?.length > 0 ? (
+              transaction[activeTab].map((item, index) =>
+                renderItem(item, index)
+              )
+            ) : (
+              <Text className=" mt-10 text-xl font-medium">
+                No transactions available
+              </Text>
+            )}
           </View>
         </ScrollView>
       </View>

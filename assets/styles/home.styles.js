@@ -142,10 +142,5 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     fontSize: wp("4%"),
   },
-  transactionGroup: {
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-  },
 });
 export default styles;

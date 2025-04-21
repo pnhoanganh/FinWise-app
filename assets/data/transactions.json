@@ -1,0 +1,78 @@
+{
+  "daily": [
+    {
+      "id": "1",
+      "icon": "market",
+      "widthIcon": 5,
+      "heightIcon": 8,
+      "title": "Coffee",
+      "date": "09:00 - April 15",
+      "frequency": "Daily",
+      "amount": "-$5.00"
+    },
+    {
+      "id": "2",
+      "icon": "food",
+      "widthIcon": 6.5,
+      "heightIcon": 11,
+      "title": "Snacks",
+      "date": "11:30 - April 15",
+      "frequency": "Daily",
+      "amount": "-$3.50"
+    }
+  ],
+  "weekly": [
+    {
+      "id": "3",
+      "icon": "salary",
+      "widthIcon": 7,
+      "heightIcon": 7,
+      "title": "Freelance",
+      "date": "10:00 - April 14",
+      "frequency": "Weekly",
+      "amount": "$500.00"
+    },
+    {
+      "id": "4",
+      "icon": "market",
+      "widthIcon": 5,
+      "heightIcon": 8,
+      "title": "Groceries",
+      "date": "17:00 - April 12",
+      "frequency": "Pantry",
+      "amount": "-$60.00"
+    }
+  ],
+  "monthly": [
+    {
+      "id": "5",
+      "icon": "salary",
+      "widthIcon": 7,
+      "heightIcon": 7,
+      "title": "Salary",
+      "date": "18:27 - April 30",
+      "frequency": "Monthly",
+      "amount": "$4,000.00"
+    },
+    {
+      "id": "6",
+      "icon": "market",
+      "widthIcon": 5,
+      "heightIcon": 8,
+      "title": "Groceries",
+      "date": "17:00 - April 24",
+      "frequency": "Pantry",
+      "amount": "-$100.00"
+    },
+    {
+      "id": "7",
+      "icon": "rent",
+      "widthIcon": 8,
+      "heightIcon": 7,
+      "title": "Rent",
+      "date": "8:30 - April 15",
+      "frequency": "Rent",
+      "amount": "-$674.40"
+    }
+  ]
+}
