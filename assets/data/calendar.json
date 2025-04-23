@@ -1,0 +1,57 @@
+{
+  "spend": [
+    {
+      "icon": "market",
+      "widthIcon": 5,
+      "heightIcon": 8,
+      "title": "Coffee",
+      "date": "09:00 - April 15",
+      "frequency": "Daily",
+      "amount": "-$5.00"
+    },
+    {
+      "icon": "food",
+      "widthIcon": 6.5,
+      "heightIcon": 11,
+      "title": "Snacks",
+      "date": "11:30 - April 15",
+      "frequency": "Daily",
+      "amount": "-$3.50"
+    },
+    {
+      "icon": "salary",
+      "widthIcon": 8,
+      "heightIcon": 7,
+      "title": "Other",
+      "date": "11:30 - April 15",
+      "frequency": "Daily",
+      "amount": "$133.50"
+    }
+  ],
+  "char": [
+    {
+      "value": 27,
+      "color": "#EBA0C9",
+      "text": "27%",
+      "label": "Eating"
+    },
+    {
+      "value": 30,
+      "color": "#FFEDFA",
+      "text": "30%",
+      "label": "Groceries"
+    },
+    {
+      "value": 16,
+      "color": "#FFB1B1",
+      "text": "16%",
+      "label": "Shopping"
+    },
+    {
+      "value": 27,
+      "color": "#446A46",
+      "text": "27%",
+      "label": "Transport"
+    }
+  ]
+}

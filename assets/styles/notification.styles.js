@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 66,
     paddingVertical: hp("2%"),
-    paddingHorizontal: wp("10%"),
+    paddingHorizontal: wp("8%"),
     shadowColor: COLORS.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

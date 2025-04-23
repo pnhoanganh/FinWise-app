@@ -5,7 +5,7 @@ import {
   Animated,
   TouchableOpacity,
 } from "react-native";
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import COLORS from "@/constants/color";
 import {
@@ -21,80 +21,36 @@ import { format } from "date-fns";
 import { Calendar } from "react-native-calendars";
 import TransactionItem from "@/components/TransactionItem";
 import HomeStyles from "../../assets/styles/home.styles";
-import { PieChart } from "react-native-gifted-charts";
-
-const renderLegend = (text, color) => {
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        marginBottom: 12,
-      }}
-    >
-      <View
-        style={{
-          height: 18,
-          width: 18,
-          marginRight: 10,
-          borderRadius: 4,
-          backgroundColor: color || "white",
-        }}
-      />
-      <Text style={{ color: COLORS.textPrimary, fontSize: 16 }}>
-        {text || ""}
-      </Text>
-    </View>
-  );
-};
-
-const PieChartFocusOnPress = () => {
-  const pieData = [
-    { value: 27, color: COLORS.deepPink, text: "27%", label: "Eating" },
-    { value: 30, color: COLORS.lightPink, text: "30%", label: "Groceries" },
-    { value: 16, color: COLORS.peach, text: "16%", label: "Shopping" },
-    { value: 27, color: COLORS.darkGreen, text: "27%", label: "Transport" },
-  ];
-
-  return (
-    <View style={{ marginTop: hp("1%"), alignItems: "center" }}>
-      <PieChart
-        donut
-        showText
-        textColor="black"
-        innerRadius={wp("10%")}
-        radius={wp("30%")}
-        showTextBackground
-        textBackgroundColor="transparent"
-        textBackgroundRadius={22}
-        data={pieData}
-        focusOnPress
-      />
-      <View
-        style={{
-          width: "100%",
-          flexDirection: "row",
-          flexWrap: "wrap", // Allow legend items to wrap to the next line
-          justifyContent: "space-evenly",
-          marginTop: 20,
-          paddingHorizontal: wp("5%"),
-        }}
-      >
-        {pieData.map((item, index) => (
-          <View key={index}>{renderLegend(item.label, item.color)}</View>
-        ))}
-      </View>
-    </View>
-  );
-};
+import calendarData from "../../assets/data/calendar.json";
+import PieChartFocusOnPress from "../../components/Char/PieChart";
 
 export default function CalendarAnalysisScreen() {
   const navigation = useNavigation();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const [selected, setSelected] = useState("");
   const [active, setActive] = useState("spend");
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    if (calendarData && typeof calendarData === "object") {
+      setData(calendarData);
+    }
+  }, []);
+
+  const renderItem = (item, index) => (
+    <TransactionItem
+      key={item.id || `${item.title}-${item.date}-${index}`}
+      icon={item.icon}
+      widthIcon={wp(`${item.widthIcon}%`)}
+      heightIcon={wp(`${item.heightIcon}%`)}
+      title={item.title}
+      date={item.date}
+      frequency={item.frequency}
+      amount={item.amount}
+    />
+  );
 
   // Get today's date in YYYY-MM-DD format
-  const today = format(new Date(), "yyyy-MM-dd"); // e.g., "2025-04-17"
+  const today = format(new Date(), "yyyy-MM-dd");
 
   // Custom Day Component to style each day cell
   const CustomDay = (props) => {
@@ -166,40 +122,6 @@ export default function CalendarAnalysisScreen() {
 
     return marked;
   }, [selected, today]);
-
-  // DATA
-  const data = {
-    spend: [
-      {
-        icon: require("@/assets/images/market.svg"),
-        widthIcon: wp("5%"),
-        heightIcon: wp("8%"),
-        title: "Coffee",
-        date: "09:00 - April 15",
-        frequency: "Daily",
-        amount: "-$5.00",
-      },
-      {
-        icon: require("@/assets/images/Food.svg"),
-        widthIcon: wp("6.5%"),
-        heightIcon: wp("11%"),
-        title: "Snacks",
-        date: "11:30 - April 15",
-        frequency: "Daily",
-        amount: "-$3.50",
-      },
-      {
-        icon: require("@/assets/images/Salary.svg"),
-        widthIcon: wp("8%"),
-        heightIcon: wp("7%"),
-        title: "Other",
-        date: "11:30 - April 15",
-        frequency: "Daily",
-        amount: "$133.50",
-      },
-    ],
-    cate: [],
-  };
 
   return (
     <SafeScreen>
@@ -297,11 +219,11 @@ export default function CalendarAnalysisScreen() {
                 searchStyles.btn,
                 {
                   backgroundColor:
-                    active === "cate" ? COLORS.mainPink : COLORS.lightGreen,
+                    active === "char" ? COLORS.mainPink : COLORS.lightGreen,
                 },
               ]}
               onPress={() => {
-                setActive("cate");
+                setActive("char");
               }}
             >
               <Text>Categories</Text>
@@ -311,20 +233,19 @@ export default function CalendarAnalysisScreen() {
           {/* DISPLAY DATA */}
           <View style={[HomeStyles.transactionGroup, { marginTop: hp("2%") }]}>
             {active === "spend" ? (
-              data.spend.map((item, index) => (
-                <TransactionItem
-                  key={index}
-                  icon={item.icon}
-                  widthIcon={item.widthIcon}
-                  heightIcon={item.heightIcon}
-                  title={item.title}
-                  date={item.date}
-                  frequency={item.frequency}
-                  amount={item.amount}
-                />
-              ))
+              Array.isArray(data?.spend) && data.spend.length > 0 ? (
+                data.spend.map((item, index) => renderItem(item, index))
+              ) : (
+                <Text>No transactions available</Text>
+              )
+            ) : active === "char" ? (
+              Array.isArray(data?.char) && data.char.length > 0 ? (
+                <PieChartFocusOnPress data={data.char} />
+              ) : (
+                <Text>No category data available</Text>
+              )
             ) : (
-              <PieChartFocusOnPress />
+              <Text>No data available</Text>
             )}
           </View>
         </ScrollView>

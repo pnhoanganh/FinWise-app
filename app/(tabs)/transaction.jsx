@@ -18,27 +18,44 @@ import AnalysisStyles from "@/assets/styles/analysis.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import TransactionItem from "@/components/TransactionItem";
+import transactionData from "../../assets/data/transactionData/monthlyTransaction.json";
 
-const calculateTotals = (data) => {
+const calculateTotals = (transactionData) => {
   let totalIncome = 0;
   let totalExpense = 0;
 
-  data.sumary.forEach((group) => {
-    group.transaction.forEach((transaction) => {
-      let amountStr = transaction.amount.replace("$", "").replace(",", "");
-      const amount = parseFloat(amountStr);
+  // Check if transactionData and sumary exist
+  if (
+    !transactionData ||
+    !transactionData.sumary ||
+    !Array.isArray(transactionData.sumary)
+  ) {
+    console.warn("Invalid transaction data or sumary not found");
+    return {
+      totalBalance: "0.00",
+      totalIncome: "0.00",
+      totalExpense: "0.00",
+    };
+  }
 
-      if (isNaN(amount)) {
-        console.warn(`Invalid amount detected: ${transaction.amount}`);
-        return;
-      }
+  transactionData.sumary.forEach((group) => {
+    if (group.transaction && Array.isArray(group.transaction)) {
+      group.transaction.forEach((transaction) => {
+        let amountStr = transaction.amount.replace("$", "").replace(",", "");
+        const amount = parseFloat(amountStr);
 
-      if (amount > 0) {
-        totalIncome += amount;
-      } else {
-        totalExpense += Math.abs(amount);
-      }
-    });
+        if (isNaN(amount)) {
+          console.warn(`Invalid amount detected: ${transaction.amount}`);
+          return;
+        }
+
+        if (amount > 0) {
+          totalIncome += amount;
+        } else {
+          totalExpense += Math.abs(amount);
+        }
+      });
+    }
   });
 
   const totalBalance = totalIncome - totalExpense;
@@ -58,6 +75,8 @@ const calculateTotals = (data) => {
 
 // Filter income transactions (positive amounts)
 const getIncomeTransactions = (sumary) => {
+  if (!sumary || !Array.isArray(sumary)) return [];
+
   const incomeGroups = {};
 
   sumary.forEach((group) => {
@@ -79,6 +98,8 @@ const getIncomeTransactions = (sumary) => {
 
 // Filter expense transactions (negative amounts)
 const getExpenseTransactions = (sumary) => {
+  if (!sumary || !Array.isArray(sumary)) return [];
+
   const expenseGroups = {};
 
   sumary.forEach((group) => {
@@ -102,97 +123,26 @@ export default function Transaction() {
   const navigation = useNavigation();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const [activeTab, setActiveTab] = useState("sumary");
+  const [transaction, setTransaction] = useState(
+    transactionData || { sumary: [] }
+  );
 
-  const transactionData = {
-    sumary: [
-      {
-        month: "April",
-        transaction: [
-          {
-            icon: require("@/assets/images/market.svg"),
-            widthIcon: wp("5%"),
-            heightIcon: wp("8%"),
-            title: "Coffee",
-            date: "09:00 - April 15",
-            frequency: "Monthly",
-            amount: "-$500",
-          },
-          {
-            icon: require("@/assets/images/Food.svg"),
-            widthIcon: wp("6.5%"),
-            heightIcon: wp("11%"),
-            title: "Snacks",
-            date: "11:30 - April 15",
-            frequency: "Monthly",
-            amount: "-$100",
-          },
-          {
-            icon: require("@/assets/images/Salary.svg"),
-            widthIcon: wp("7%"),
-            heightIcon: wp("7%"),
-            title: "Freelance",
-            date: "10:00 - April 14",
-            frequency: "Monthly",
-            amount: "$20,000",
-          },
-          {
-            icon: require("@/assets/images/market.svg"),
-            widthIcon: wp("5%"),
-            heightIcon: wp("8%"),
-            title: "Groceries",
-            date: "17:00 - April 12",
-            frequency: "Pantry",
-            amount: "-$1600",
-          },
-          {
-            icon: require("@/assets/images/transport.svg"),
-            widthIcon: wp("8%"),
-            heightIcon: wp("8%"),
-            title: "Transport",
-            date: "09:00 - April 15",
-            frequency: "Daily",
-            amount: "-$150",
-          },
-        ],
-      },
-      {
-        month: "March",
-        transaction: [
-          {
-            icon: require("@/assets/images/transport.svg"),
-            widthIcon: wp("8%"),
-            heightIcon: wp("8%"),
-            title: "Transport",
-            date: "09:00 - March 15",
-            frequency: "Monthly",
-            amount: "-$155",
-          },
-          {
-            icon: require("@/assets/images/Food.svg"),
-            widthIcon: wp("6.5%"),
-            heightIcon: wp("11%"),
-            title: "Snacks",
-            date: "11:30 - March 15",
-            frequency: "Monthly",
-            amount: "-$300",
-          },
-          {
-            icon: require("@/assets/images/Salary.svg"),
-            widthIcon: wp("7%"),
-            heightIcon: wp("7%"),
-            title: "Freelance",
-            date: "10:00 - March 14",
-            frequency: "Monthly",
-            amount: "$15,500",
-          },
-        ],
-      },
-    ],
-  };
+  const renderItem = (item, index) => (
+    <TransactionItem
+      key={item.id || `${item.title}-${item.date}-${index}`}
+      icon={item.icon}
+      widthIcon={wp(`${item.widthIcon}%`)}
+      heightIcon={wp(`${item.heightIcon}%`)}
+      title={item.title}
+      date={item.date}
+      frequency={item.frequency}
+      amount={item.amount}
+    />
+  );
 
-  const calculateData = calculateTotals(transactionData);
-  const incomeData = getIncomeTransactions(transactionData.sumary);
-  const expenseData = getExpenseTransactions(transactionData.sumary);
+  const calculateData = calculateTotals(transaction);
+  const incomeData = getIncomeTransactions(transaction.sumary || []);
+  const expenseData = getExpenseTransactions(transaction.sumary || []);
 
   return (
     <SafeScreen>
@@ -215,10 +165,8 @@ export default function Transaction() {
 
         <View className="mt-9 mx-auto">
           <TouchableOpacity
-            onPress={() => {
-              setActiveTab("sumary");
-            }}
-            style={{ width: wp("80%") }}
+            onPress={() => setActiveTab("sumary")}
+            style={{ width: wp("80%"), height: hp("8%") }}
             className={`flex justify-center items-center rounded-xl py-3 bg-${
               activeTab === "sumary" ? "darkGreen" : "greenWhite"
             }`}
@@ -241,9 +189,8 @@ export default function Transaction() {
           <View className="flex flex-row mt-4 justify-between">
             {/* INCOME */}
             <TouchableOpacity
-              onPress={() => {
-                setActiveTab("incomeTab");
-              }}
+              onPress={() => setActiveTab("incomeTab")}
+              style={{ width: wp("36%") }}
               className={`flex justify-center items-center py-4 px-6 rounded-xl min-w-[135px] gap-1 bg-${
                 activeTab === "sumary"
                   ? "greenWhite"
@@ -277,9 +224,8 @@ export default function Transaction() {
             </TouchableOpacity>
             {/* EXPENSE */}
             <TouchableOpacity
-              onPress={() => {
-                setActiveTab("expenseTab");
-              }}
+              onPress={() => setActiveTab("expenseTab")}
+              style={{ width: wp("36%") }}
               className={`flex justify-center items-center py-4 px-6 rounded-xl min-w-[135px] gap-1 bg-${
                 activeTab === "sumary"
                   ? "greenWhite"
@@ -340,9 +286,7 @@ export default function Transaction() {
               right: 0,
               zIndex: 10,
             }}
-            onPress={() => {
-              router.navigate("/(screens)/calenderAnlysis");
-            }}
+            onPress={() => router.navigate("/(screens)/calendarAnlysis")}
           >
             <Image
               source={require("../../assets/images/calender.svg")}
@@ -350,65 +294,51 @@ export default function Transaction() {
             />
           </TouchableOpacity>
           <View>
-            {activeTab === "sumary"
-              ? transactionData.sumary.map((group, index) => (
+            {activeTab === "sumary" ? (
+              Array.isArray(transaction.sumary) &&
+              transaction.sumary.length > 0 ? (
+                transaction.sumary.map((group, index) => (
                   <View key={index}>
                     <Text className="font-medium text-lg">{group.month}</Text>
                     <View className="my-4">
-                      {group.transaction.map((transactionData, index) => (
-                        <TransactionItem
-                          key={index}
-                          icon={transactionData.icon}
-                          widthIcon={transactionData.widthIcon}
-                          heightIcon={transactionData.heightIcon}
-                          title={transactionData.title}
-                          date={transactionData.date}
-                          frequency={transactionData.frequency}
-                          amount={transactionData.amount}
-                        />
-                      ))}
+                      {group.transaction.map((transactionData, index) =>
+                        renderItem(transactionData, index)
+                      )}
                     </View>
                   </View>
                 ))
-              : activeTab === "incomeTab"
-              ? incomeData.map((group, index) => (
+              ) : (
+                <Text>No transactions available</Text>
+              )
+            ) : activeTab === "incomeTab" ? (
+              incomeData.length > 0 ? (
+                incomeData.map((group, index) => (
                   <View key={index}>
                     <Text className="font-medium text-lg">{group.month}</Text>
                     <View className="my-4">
-                      {group.transaction.map((transactionData, index) => (
-                        <TransactionItem
-                          key={index}
-                          icon={transactionData.icon}
-                          widthIcon={transactionData.widthIcon}
-                          heightIcon={transactionData.heightIcon}
-                          title={transactionData.title}
-                          date={transactionData.date}
-                          frequency={transactionData.frequency}
-                          amount={transactionData.amount}
-                        />
-                      ))}
+                      {group.transaction.map((transactionData, index) =>
+                        renderItem(transactionData, index)
+                      )}
                     </View>
                   </View>
                 ))
-              : expenseData.map((group, index) => (
-                  <View key={index}>
-                    <Text className="font-medium text-lg">{group.month}</Text>
-                    <View className="my-4">
-                      {group.transaction.map((transactionData, index) => (
-                        <TransactionItem
-                          key={index}
-                          icon={transactionData.icon}
-                          widthIcon={transactionData.widthIcon}
-                          heightIcon={transactionData.heightIcon}
-                          title={transactionData.title}
-                          date={transactionData.date}
-                          frequency={transactionData.frequency}
-                          amount={transactionData.amount}
-                        />
-                      ))}
-                    </View>
+              ) : (
+                <Text>No income transactions available</Text>
+              )
+            ) : expenseData.length > 0 ? (
+              expenseData.map((group, index) => (
+                <View key={index}>
+                  <Text className="font-medium text-lg">{group.month}</Text>
+                  <View className="my-4">
+                    {group.transaction.map((transactionData, index) =>
+                      renderItem(transactionData, index)
+                    )}
                   </View>
-                ))}
+                </View>
+              ))
+            ) : (
+              <Text>No expense transactions available</Text>
+            )}
           </View>
         </ScrollView>
       </View>

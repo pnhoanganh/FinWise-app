@@ -17,7 +17,7 @@ import COLORS from "@/constants/color";
 import HomeStyles from "../../assets/styles/home.styles";
 import AnalysisStyles from "@/assets/styles/analysis.styles";
 import SafeScreen from "@/components/SafeScreen";
-import ProgressBar from "../../components/ProgressBar";
+import ProgressBar from "../../components/Char/ProgressBar";
 import TransactionItem from "@/components/TransactionItem";
 import transactionData from "../../assets/data/transactions.json";
 

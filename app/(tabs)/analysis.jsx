@@ -15,13 +15,13 @@ import {
 } from "react-native-responsive-screen";
 import COLORS from "@/constants/color";
 import AnalysisStyles from "@/assets/styles/analysis.styles";
-import ProgressBar from "@/components/ProgressBar";
+import ProgressBar from "@/components/Char/ProgressBar";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { BarChart } from "react-native-gifted-charts";
 import barChartData from "@/assets/data/analysisData/barChartData.json";
 import pieChartData from "@/assets/data/analysisData/targetPieChartData.json";
-import TargetProgressCard from "@/components/TargetProgressCard";
+import TargetProgressCard from "@/components/Char/TargetProgressCard";
 
 export default function Analysis() {
   const navigation = useNavigation();
@@ -239,7 +239,7 @@ export default function Analysis() {
                     borderRadius: "50%",
                   }}
                   onPress={() => {
-                    router.navigate("/(screens)/calenderAnlysis");
+                    router.navigate("/(screens)/calendarAnlysis");
                   }}
                 >
                   <Image
