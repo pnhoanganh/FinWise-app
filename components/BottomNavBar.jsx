@@ -41,7 +41,7 @@ const BottomNavBar = ({ state, descriptors, navigation }) => {
             color={focused ? activeColor : inactiveColor}
           />
         );
-      case "catogory":
+      case "categories":
         return (
           <AntDesign
             name="tags"

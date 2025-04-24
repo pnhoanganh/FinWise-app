@@ -309,14 +309,6 @@ export default function SearchAnalysisScreen() {
 
           {/* RENDER DATA GROUP */}
           <View style={{ marginTop: hp("6%"), gap: hp("2%") }}>
-            {/* <ReportItem
-              img={require("../../assets/images/Food.svg")}
-              imgWidth={hp("2%")}
-              imgHeight={hp("3.5%")}
-              title="Dinner"
-              time="18:27 - April 30"
-              amount="-$26,00"
-            /> */}
             {reportData.map((item, index) => (
               <ReportItem
                 key={index}

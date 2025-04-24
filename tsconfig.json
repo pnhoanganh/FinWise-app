@@ -3,9 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -19,7 +17,7 @@
     "app/(tabs)/_layout.jsx",
     "app/(tabs)/user.jsx",
     "app/(tabs)/transaction.jsx",
-    "app/(tabs)/catogory.jsx",
+    "app/(tabs)/categories.jsx",
     "app/(tabs)/analysis.jsx",
     "nativewind-env.d.ts"
   ]
