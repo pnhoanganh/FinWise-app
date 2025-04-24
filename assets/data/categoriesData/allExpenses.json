@@ -102,5 +102,59 @@
         }
       ]
     }
+  ],
+  "Groceries": [
+    {
+      "month": "April",
+      "transaction": [
+        {
+          "title": "Weekly Groceries",
+          "date": "15:00 - April 24",
+          "amount": 37.65,
+          "icon": "market",
+          "widthIcon": 5,
+          "heightIcon": 8
+        }
+      ]
+    }
+  ],
+
+  "Medicine": [
+    {
+      "month": "April",
+      "transaction": [
+        {
+          "title": "Prescription",
+          "date": "15:00 - April 24",
+          "amount": 23.0,
+          "icon": "medicine",
+          "widthIcon": 6,
+          "heightIcon": 8
+        }
+      ]
+    }
+  ],
+  "Entertainment": [
+    {
+      "month": "April",
+      "transaction": [
+        {
+          "title": "Movie Tickets",
+          "date": "15:00 - April 24",
+          "amount": 30.0,
+          "icon": "entertainment",
+          "widthIcon": 8,
+          "heightIcon": 8
+        },
+        {
+          "title": "Concert",
+          "date": "15:00 - April 24",
+          "amount": 45.0,
+          "icon": "entertainment",
+          "widthIcon": 8,
+          "heightIcon": 8
+        }
+      ]
+    }
   ]
 }

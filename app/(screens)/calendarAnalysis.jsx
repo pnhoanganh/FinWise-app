@@ -21,7 +21,7 @@ import { format } from "date-fns";
 import { Calendar } from "react-native-calendars";
 import TransactionItem from "@/components/TransactionItem";
 import HomeStyles from "../../assets/styles/home.styles";
-import calendarData from "../../assets/data/calendar.json";
+import calendarData from "../../assets/data/analysisData/calendar.json";
 import PieChartFocusOnPress from "../../components/Char/PieChart";
 
 export default function CalendarAnalysisScreen() {

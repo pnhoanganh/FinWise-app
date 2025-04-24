@@ -177,7 +177,7 @@ export default function Transaction() {
             <Text
               style={{
                 color:
-                  activeTab === "summary"
+                  activeTab === "sumary"
                     ? COLORS.lightGreen
                     : COLORS.textPrimary,
               }}
@@ -188,7 +188,7 @@ export default function Transaction() {
             <Text
               style={{
                 color:
-                  activeTab === "summary"
+                  activeTab === "sumary"
                     ? COLORS.lightGreen
                     : COLORS.textPrimary,
               }}
@@ -311,7 +311,7 @@ export default function Transaction() {
               right: 0,
               zIndex: 10,
             }}
-            onPress={() => router.navigate("/(screens)/calendarAnlysis")}
+            onPress={() => router.navigate("/(screens)/calendarAnalysis")}
           >
             <Image
               source={require("../../assets/images/calender.svg")}
@@ -325,7 +325,7 @@ export default function Transaction() {
                 transaction.sumary.map((group, index) => (
                   <View key={index}>
                     <Text className="font-medium text-lg">{group.month}</Text>
-                    <View className="my-4">
+                    <View className="my-4 mx-auto">
                       {group.transaction.map((transactionData, index) =>
                         renderItem(transactionData, index)
                       )}
@@ -349,7 +349,7 @@ export default function Transaction() {
                 incomeData.map((group, index) => (
                   <View key={index}>
                     <Text className="font-medium text-lg">{group.month}</Text>
-                    <View className="my-4">
+                    <View className="my-4 mx-auto">
                       {group.transaction.map((transactionData, index) =>
                         renderItem(transactionData, index)
                       )}
@@ -372,7 +372,7 @@ export default function Transaction() {
               expenseData.map((group, index) => (
                 <View key={index}>
                   <Text className="font-medium text-lg">{group.month}</Text>
-                  <View className="my-4">
+                  <View className="my-4 mx-auto">
                     {group.transaction.map((transactionData, index) =>
                       renderItem(transactionData, index)
                     )}

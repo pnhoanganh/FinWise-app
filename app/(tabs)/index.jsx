@@ -277,7 +277,7 @@ export default function Home() {
             ))}
           </View>
           {/* TRASACTION ITEM */}
-          <View style={HomeStyles.transactionGroup}>
+          <View style={{ marginHorizontal: "auto", marginTop: hp("1%") }}>
             {transaction[activeTab]?.length > 0 ? (
               transaction[activeTab].map((item, index) =>
                 renderItem(item, index)

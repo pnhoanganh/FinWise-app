@@ -239,7 +239,7 @@ export default function Analysis() {
                     borderRadius: "50%",
                   }}
                   onPress={() => {
-                    router.navigate("/(screens)/calendarAnlysis");
+                    router.navigate("/(screens)/calendarAnalysis");
                   }}
                 >
                   <Image
