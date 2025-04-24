@@ -7,84 +7,44 @@ import {
   Animated,
 } from "react-native";
 import { Image } from "expo-image";
-import { Link, useNavigation, router } from "expo-router";
+import { Link, useLocalSearchParams, useNavigation, router } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import COLORS from "@/constants/color";
-import AnalysisStyles from "@/assets/styles/analysis.styles";
+import AnalysisStyles from "../../assets/styles/analysis.styles";
 import ProgressBar from "@/components/Char/ProgressBar";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import iconMapper from "@/constants/iconMapper";
-import tagData from "@/assets/data/categoriesData/tag.json";
-import AddMoreTagModal from "@/components/Modal/AddMoreTag";
+import data from "../../assets/data/categoriesData/allExpenses.json";
+import CategoryExpenseItem from "../../components/CategoryExpenseItem";
+import Styles from "../../assets/styles/notification.styles";
 
-const Tag = ({ icon, widthIcon, heightIcon, label, onPressFunc, bgColor }) => {
-  return (
-    <TouchableOpacity className=" mb-4 flex gap-2" onPress={onPressFunc}>
-      <View
-        style={{
-          backgroundColor: bgColor,
-          marginHorizontal: "auto",
-          paddingVertical: hp("2%"),
-          paddingHorizontal: wp("7%"),
-          borderRadius: 20,
-          width: wp("24%"),
-          height: hp("10%"),
-        }}
-      >
-        <Image
-          source={iconMapper[icon]}
-          style={{
-            width: widthIcon,
-            height: heightIcon,
-            marginVertical: "auto",
-            marginHorizontal: "auto",
-          }}
-        />
-      </View>
-      <Text className="text-center text-lg">{label}</Text>
-    </TouchableOpacity>
-  );
-};
-export default function Categories() {
+export default function SpecificCategory() {
   const navigation = useNavigation();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
-  const [categories, setCategories] = useState([]);
-  const [selectedTag, setSelectedTag] = useState(null);
-  const [visible, setVisible] = useState(false);
-
+  const { id } = useLocalSearchParams();
+  const [expensesData, setExpensesData] = useState();
   useEffect(() => {
-    const fullTag = [
-      ...tagData,
-      {
-        id: "moreTag",
-        label: "More",
-        icon: "more",
-        isMore: true,
-      },
-    ];
-    setCategories(fullTag);
+    setExpensesData(data);
   }, []);
 
-  const handleSelectedTag = (item) => {
-    setSelectedTag(item.id);
-    if (item.isMore) {
-      setVisible(true);
-      return;
-    } else {
-      router.push({
-        pathname: "/(screens)/specificCategory",
-        params: { id: item.label },
-      });
-      setTimeout(() => {
-        setSelectedTag(false);
-      }, 300);
-    }
-  };
+  const renderItem = (item, index) => (
+    <CategoryExpenseItem
+      key={item.id || `${item.title}-${item.date}-${index}`}
+      icon={item.icon}
+      widthIcon={wp(`${item.widthIcon}%`)}
+      heightIcon={wp(`${item.heightIcon}%`)}
+      title={item.title}
+      date={item.date}
+      frequency={item.frequency}
+      amount={`-$${Math.abs(item.amount).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+      })}`}
+    />
+  );
 
   const financeData = {
     totalBalance: 7783.0,
@@ -103,7 +63,7 @@ export default function Categories() {
             onPress={() => navigation.goBack()}
           />
           <View>
-            <Text style={{ fontSize: 20, fontWeight: 600 }}>Categories</Text>
+            <Text style={{ fontSize: 20, fontWeight: 600 }}>{id}</Text>
           </View>
           <Link href="/(screens)/notification">
             <Ionicons name="notifications" size={24} color="black" />
@@ -185,36 +145,79 @@ export default function Categories() {
           scrollEventThrottle={5}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          style={[AnalysisStyles.card, { maxHeight: undefined }]}
-          contentContainerStyle={{ paddingBottom: hp("10%") }}
+          style={[Styles.card, { maxHeight: undefined }]}
+          contentContainerStyle={{ paddingBottom: hp("8%") }}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
             { useNativeDriver: false }
           )}
         >
-          <View className="flex flex-row flex-wrap gap-7 justify-start">
-            {categories.map((item, index) => (
-              <Tag
-                key={index}
-                icon={item.icon}
-                label={item.label}
-                heightIcon={item.height ? wp(`${item.height}%`) : wp("9%")}
-                widthIcon={item.width ? wp(`${item.width}%`) : wp("9%")}
-                onPressFunc={() => handleSelectedTag(item)}
-                bgColor={
-                  selectedTag === item.id ? COLORS.mainPink : COLORS.green
-                }
-              />
-            ))}
+          <TouchableOpacity
+            style={{
+              width: wp("10%"),
+              height: wp("9%"),
+              backgroundColor: COLORS.mainPink,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 15,
+              position: "absolute",
+              top: 0,
+              right: 0,
+              zIndex: 10,
+            }}
+            onPress={() => router.navigate("/(screens)/calendarAnlysis")}
+          >
+            <Image
+              source={require("../../assets/images/calender.svg")}
+              style={{ width: 18, height: 16 }}
+            />
+          </TouchableOpacity>
+          <View>
+            {expensesData && expensesData[id] && expensesData[id].length > 0 ? (
+              expensesData[id].map((group, index) => (
+                <View key={index}>
+                  <Text className="font-medium text-lg">{group.month}</Text>
+                  <View className="my-4">
+                    {group.transaction.map((item, index) =>
+                      renderItem(item, index)
+                    )}
+                  </View>
+                </View>
+              ))
+            ) : (
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: hp("3%"),
+                  fontWeight: 600,
+                  marginTop: hp("15%"),
+                }}
+              >
+                No transactions available
+              </Text>
+            )}
           </View>
+          <TouchableOpacity
+            style={{
+              marginHorizontal: "auto",
+              marginTop: 8,
+              backgroundColor: COLORS.darkGreen,
+              paddingVertical: hp("1%"),
+              paddingHorizontal: wp("7%"),
+              borderRadius: wp("7%"),
+            }}
+            onPress={() => {
+              router.navigate("/(screens)/addExpense");
+            }}
+          >
+            <Text
+              style={{ color: COLORS.bagie, fontWeight: 500, fontSize: 18 }}
+            >
+              Add Expense
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
-        <AddMoreTagModal
-          isOpen={visible}
-          onClose={() => {
-            setVisible(false);
-            setSelectedTag(null);
-          }}
-        />
       </View>
     </SafeScreen>
   );

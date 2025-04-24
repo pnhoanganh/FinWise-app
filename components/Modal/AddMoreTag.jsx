@@ -103,7 +103,7 @@ const AddMoreTag = ({ isOpen, onClose }) => {
                   fontSize: hp("1.7%"),
                 }}
               >
-                Cancer
+                Cancel
               </Text>
             </TouchableOpacity>
           </View>

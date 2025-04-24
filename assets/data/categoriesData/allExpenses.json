@@ -1,0 +1,106 @@
+{
+  "Food": [
+    {
+      "month": "April",
+      "transaction": [
+        {
+          "title": "Dinner",
+          "date": "18:27 - April 30",
+          "amount": 26.0,
+          "icon": "food",
+          "widthIcon": 5,
+          "heightIcon": 9
+        },
+        {
+          "title": "Delivery Pizza",
+          "date": "15:00 - April 24",
+          "amount": 18.35,
+          "icon": "food",
+          "widthIcon": 5,
+          "heightIcon": 9
+        },
+        {
+          "title": "Lunch",
+          "date": "12:30 - April 15",
+          "amount": 15.4,
+          "icon": "food",
+          "widthIcon": 5,
+          "heightIcon": 9
+        },
+        {
+          "title": "Brunch",
+          "date": "8:30 - April 9",
+          "amount": 12.13,
+          "icon": "food",
+          "widthIcon": 5,
+          "heightIcon": 9
+        }
+      ]
+    },
+    {
+      "month": "March",
+      "transaction": [
+        {
+          "title": "Dinner",
+          "date": "20:50 - March 31",
+          "amount": 27.2,
+          "icon": "food",
+          "widthIcon": 5,
+          "heightIcon": 9
+        }
+      ]
+    }
+  ],
+  "Transport": [
+    {
+      "month": "March",
+      "transaction": [
+        {
+          "title": "Fuel",
+          "date": "18:27 - March 30",
+          "amount": 3.53,
+          "icon": "transport",
+          "widthIcon": 8,
+          "heightIcon": 8
+        },
+        {
+          "title": "Car Parts",
+          "date": "15:00 - March 30",
+          "amount": 26.75,
+          "icon": "transport",
+          "widthIcon": 8,
+          "heightIcon": 8
+        }
+      ]
+    },
+    {
+      "month": "February",
+      "transaction": [
+        {
+          "title": "New Tires",
+          "date": "12:47 - February 10",
+          "amount": 373.99,
+          "icon": "transport",
+          "widthIcon": 8,
+          "heightIcon": 8
+        },
+        {
+          "title": "Car Wash",
+          "date": "8:30 - February 09",
+          "amount": 9.74,
+          "icon": "transport",
+          "widthIcon": 8,
+          "heightIcon": 8
+        },
+        {
+          "title": "Public Transport",
+          "date": "7:50 - February 01",
+          "amount": 1.24,
+          "icon": "transport",
+          "widthIcon": 8,
+          "heightIcon": 8
+        }
+      ]
+    }
+  ]
+}

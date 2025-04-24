@@ -166,22 +166,33 @@ export default function Transaction() {
         <View className="mt-9 mx-auto">
           <TouchableOpacity
             onPress={() => setActiveTab("sumary")}
-            style={{ width: wp("80%"), height: hp("8%") }}
-            className={`flex justify-center items-center rounded-xl py-3 bg-${
-              activeTab === "sumary" ? "darkGreen" : "greenWhite"
-            }`}
+            style={{
+              width: wp("80%"),
+              height: hp("8%"),
+              backgroundColor:
+                activeTab === "sumary" ? COLORS.darkGreen : COLORS.greenWhite,
+            }}
+            className="flex justify-center items-center rounded-xl py-3 "
           >
             <Text
-              className={`text-s text-${
-                activeTab === "sumary" ? "bagie" : "primary"
-              }`}
+              style={{
+                color:
+                  activeTab === "summary"
+                    ? COLORS.lightGreen
+                    : COLORS.textPrimary,
+              }}
+              className="text-s"
             >
               Total Balance
             </Text>
             <Text
-              className={`font-bold text-2xl text-${
-                activeTab === "sumary" ? "bagie" : "primary"
-              }`}
+              style={{
+                color:
+                  activeTab === "summary"
+                    ? COLORS.lightGreen
+                    : COLORS.textPrimary,
+              }}
+              className="font-bold text-2xl"
             >
               ${calculateData.totalBalance}
             </Text>
@@ -190,14 +201,14 @@ export default function Transaction() {
             {/* INCOME */}
             <TouchableOpacity
               onPress={() => setActiveTab("incomeTab")}
-              style={{ width: wp("36%") }}
-              className={`flex justify-center items-center py-4 px-6 rounded-xl min-w-[135px] gap-1 bg-${
-                activeTab === "sumary"
-                  ? "greenWhite"
-                  : activeTab === "incomeTab"
-                  ? "darkGreen"
-                  : "greenWhite"
-              } text-white`}
+              style={{
+                width: wp("36%"),
+                backgroundColor:
+                  activeTab === "incomeTab"
+                    ? COLORS.darkGreen
+                    : COLORS.greenWhite,
+              }}
+              className="flex justify-center items-center py-4 px-6 rounded-xl min-w-[135px] gap-1"
             >
               <Image
                 source={
@@ -208,16 +219,23 @@ export default function Transaction() {
                 style={{ width: 20, height: 20 }}
               />
               <Text
-                className={`text-${
-                  activeTab === "incomeTab" ? "bagie" : "black"
-                }`}
+                style={{
+                  color:
+                    activeTab === "incomeTab"
+                      ? COLORS.lightGreen
+                      : COLORS.textPrimary,
+                }}
               >
                 Income
               </Text>
               <Text
-                className={`font-semibold text-2xl text-${
-                  activeTab === "incomeTab" ? "bagie" : "deepPink"
-                }`}
+                style={{
+                  color:
+                    activeTab === "incomeTab"
+                      ? COLORS.lightGreen
+                      : COLORS.textPrimary,
+                }}
+                className="font-semibold text-2xl"
               >
                 ${calculateData.totalIncome}
               </Text>
@@ -225,14 +243,14 @@ export default function Transaction() {
             {/* EXPENSE */}
             <TouchableOpacity
               onPress={() => setActiveTab("expenseTab")}
-              style={{ width: wp("36%") }}
-              className={`flex justify-center items-center py-4 px-6 rounded-xl min-w-[135px] gap-1 bg-${
-                activeTab === "sumary"
-                  ? "greenWhite"
-                  : activeTab === "expenseTab"
-                  ? "darkGreen"
-                  : "greenWhite"
-              }`}
+              style={{
+                width: wp("36%"),
+                backgroundColor:
+                  activeTab === "expenseTab"
+                    ? COLORS.darkGreen
+                    : COLORS.greenWhite,
+              }}
+              className="flex justify-center items-center py-4 px-6 rounded-xl min-w-[135px] gap-1"
             >
               <Image
                 source={
@@ -243,16 +261,23 @@ export default function Transaction() {
                 style={{ width: 20, height: 20 }}
               />
               <Text
-                className={`text-${
-                  activeTab === "expenseTab" ? "bagie" : "black"
-                }`}
+                style={{
+                  color:
+                    activeTab === "expenseTab"
+                      ? COLORS.lightGreen
+                      : COLORS.textPrimary,
+                }}
               >
                 Expense
               </Text>
               <Text
-                className={`font-semibold text-2xl text-${
-                  activeTab === "expenseTab" ? "bagie" : "darkGreen"
-                }`}
+                style={{
+                  color:
+                    activeTab === "expenseTab"
+                      ? COLORS.lightGreen
+                      : COLORS.textPrimary,
+                }}
+                className="font-semibold text-2xl"
               >
                 ${calculateData.totalExpense}
               </Text>
@@ -308,7 +333,16 @@ export default function Transaction() {
                   </View>
                 ))
               ) : (
-                <Text>No transactions available</Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: hp("3%"),
+                    fontWeight: 600,
+                    marginTop: hp("15%"),
+                  }}
+                >
+                  No transactions available
+                </Text>
               )
             ) : activeTab === "incomeTab" ? (
               incomeData.length > 0 ? (
@@ -323,7 +357,16 @@ export default function Transaction() {
                   </View>
                 ))
               ) : (
-                <Text>No income transactions available</Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: hp("3%"),
+                    fontWeight: 600,
+                    marginTop: hp("15%"),
+                  }}
+                >
+                  No income transactions available
+                </Text>
               )
             ) : expenseData.length > 0 ? (
               expenseData.map((group, index) => (
@@ -337,7 +380,16 @@ export default function Transaction() {
                 </View>
               ))
             ) : (
-              <Text>No expense transactions available</Text>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: hp("3%"),
+                  fontWeight: 600,
+                  marginTop: hp("15%"),
+                }}
+              >
+                No expense transactions available
+              </Text>
             )}
           </View>
         </ScrollView>

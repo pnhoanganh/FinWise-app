@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+    fontWeight: 600,
   },
   boldText: {
     fontWeight: "700",
