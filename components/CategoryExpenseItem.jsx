@@ -12,6 +12,7 @@ const CategoryExpenseItem = ({
   title,
   date,
   amount,
+  bgColor,
 }) => {
   return (
     <View style={styles.container}>
@@ -19,7 +20,12 @@ const CategoryExpenseItem = ({
         style={{ flexDirection: "row", alignItems: "center", width: wp("45%") }}
       >
         {/* Left Icon */}
-        <View style={[styles.iconWrapper]}>
+        <View
+          style={[
+            styles.iconWrapper,
+            { backgroundColor: bgColor || COLORS.deepPink },
+          ]}
+        >
           <Image
             source={iconMapper[icon]}
             style={{ width: widthIcon, height: heightIcon }}
@@ -50,7 +56,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginVertical: wp("3%"),
+    marginVertical: wp("2%"),
     width: "100%",
   },
   iconWrapper: {
@@ -60,7 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: wp("3%"),
-    backgroundColor: COLORS.deepPink,
   },
   info: {
     flex: 1,

@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Image } from "expo-image";
 import COLORS from "@/constants/color";
@@ -24,52 +24,29 @@ import { Link, useNavigation } from "expo-router";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 import RadioGroup from "react-native-radio-buttons-group";
+import CategoryExpenseItem from "../../components/CategoryExpenseItem";
+import data from "../../assets/data/analysisData/searchData.json";
 
-const ReportItem = ({ img, imgWidth, imgHeight, title, time, amount }) => {
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        width: wp("80%"),
-        backgroundColor: COLORS.lightGreen,
-        justifyContent: "space-between",
-        padding: hp("2%"),
-        borderRadius: "8%",
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: COLORS.mainPink,
-            width: wp("12%"),
-            height: wp("12%"),
-            borderRadius: wp("5%"),
-            justifyContent: "center",
-            alignItems: "center",
-            marginRight: wp("3%"),
-          }}
-        >
-          <Image source={img} style={{ width: imgWidth, height: imgHeight }} />
-        </View>
-        <View style={{ gap: 3 }}>
-          <Text>{title}</Text>
-          <Text style={{ fontSize: 12, fontWeight: "600" }}>{time}</Text>
-        </View>
-      </View>
-      <Text style={{ fontWeight: "600" }}>
-        -$
-        {amount.toLocaleString("en-US", {
-          minimumFractionDigits: 0,
-        })}
-      </Text>
-    </View>
-  );
+const getIncomeTransactions = (data) => {
+  if (!data || !Array.isArray(data)) return [];
+
+  return data.filter((item) => {
+    const amount = parseFloat(
+      String(item.amount).replace("$", "").replace(",", "")
+    );
+    return amount > 0;
+  });
+};
+
+const getExpenseTransactions = (data) => {
+  if (!data || !Array.isArray(data)) return [];
+
+  return data.filter((item) => {
+    const amount = parseFloat(
+      String(item.amount).replace("$", "").replace(",", "")
+    );
+    return amount < 0;
+  });
 };
 
 export default function SearchAnalysisScreen() {
@@ -77,7 +54,27 @@ export default function SearchAnalysisScreen() {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+  const [selectedId, setSelectedId] = useState();
+  const [dataReport, setDataReport] = useState([]);
+  useEffect(() => {
+    setDataReport(data);
+  }, []);
 
+  const renderItem = ({ item, index }) => {
+    return (
+      <CategoryExpenseItem
+        key={index}
+        icon={item.icon}
+        widthIcon={wp(`${item.widthIcon}%`)}
+        heightIcon={wp(`${item.heightIcon}%`)}
+        title={item.title}
+        date={item.date}
+        amount={item.amount}
+        bgColor={COLORS.mainPink}
+      />
+    );
+  };
   const toggleDatepicker = () => {
     setShow(!show);
   };
@@ -96,7 +93,7 @@ export default function SearchAnalysisScreen() {
   const radioData = useMemo(
     () => [
       {
-        id: "1", // acts as primary key, should be unique and non-empty string
+        id: "1",
         label: "Income",
         value: "Income",
       },
@@ -109,8 +106,6 @@ export default function SearchAnalysisScreen() {
     []
   );
 
-  const [selectedId, setSelectedId] = useState();
-
   const onChange = ({ type }, selectedDate) => {
     if (type == "set") {
       const currentDate = selectedDate;
@@ -120,40 +115,8 @@ export default function SearchAnalysisScreen() {
     }
   };
 
-  const reportData = [
-    {
-      img: require("../../assets/images/Food.svg"),
-      imgWidth: hp("2%"),
-      imgHeight: hp("3.5%"),
-      title: "Dinner",
-      time: "18:27 - April 30",
-      amount: 26000,
-    },
-    {
-      img: require("../../assets/images/Car.svg"),
-      imgWidth: hp("3%"),
-      imgHeight: hp("2%"),
-      title: "Transport",
-      time: "18:27 - April 30",
-      amount: 45000,
-    },
-    {
-      img: require("../../assets/images/market.svg"),
-      imgWidth: hp("2%"),
-      imgHeight: hp("3.5%"),
-      title: "Market",
-      time: "18:27 - April 30",
-      amount: 10000,
-    },
-    {
-      img: require("../../assets/images/rent.svg"),
-      imgWidth: hp("3.5%"),
-      imgHeight: hp("3%"),
-      title: "Rent",
-      time: "18:27 - April 30",
-      amount: 100500,
-    },
-  ];
+  const incomeData = getIncomeTransactions(dataReport);
+  const expenseData = getExpenseTransactions(dataReport);
   return (
     <SafeScreen>
       <View style={Styles.container}>
@@ -301,25 +264,30 @@ export default function SearchAnalysisScreen() {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity style={searchStyles.searchBtn}>
+              <TouchableOpacity
+                onPress={() => setIsSearch(true)}
+                style={searchStyles.searchBtn}
+              >
                 <Text>Search</Text>
               </TouchableOpacity>
             </View>
           </View>
 
           {/* RENDER DATA GROUP */}
-          <View style={{ marginTop: hp("6%"), gap: hp("2%") }}>
-            {reportData.map((item, index) => (
-              <ReportItem
-                key={index}
-                img={item.img}
-                imgWidth={item.imgWidth}
-                imgHeight={item.imgHeight}
-                title={item.title}
-                time={item.time}
-                amount={item.amount}
-              />
-            ))}
+          <View
+            style={{
+              marginTop: hp("4%"),
+              gap: hp("2%"),
+              marginHorizontal: "auto",
+            }}
+          >
+            {isSearch && selectedId === "1" ? (
+              incomeData.map((item, index) => renderItem({ item, index }))
+            ) : isSearch && selectedId === "2" ? (
+              expenseData.map((item, index) => renderItem({ item, index }))
+            ) : (
+              <Text>No transaction avaiable</Text>
+            )}
           </View>
         </ScrollView>
       </View>

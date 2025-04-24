@@ -39,7 +39,6 @@ export default function SpecificCategory() {
       heightIcon={wp(`${item.heightIcon}%`)}
       title={item.title}
       date={item.date}
-      frequency={item.frequency}
       amount={`-$${Math.abs(item.amount).toLocaleString("en-US", {
         minimumFractionDigits: 2,
       })}`}
@@ -146,7 +145,7 @@ export default function SpecificCategory() {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           style={[Styles.card, { maxHeight: undefined }]}
-          contentContainerStyle={{ paddingBottom: hp("8%") }}
+          contentContainerStyle={{ paddingBottom: hp("20%") }}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
             { useNativeDriver: false }
@@ -173,12 +172,12 @@ export default function SpecificCategory() {
               style={{ width: 18, height: 16 }}
             />
           </TouchableOpacity>
-          <View>
+          <View style={{ marginTop: 3 }}>
             {expensesData && expensesData[id] && expensesData[id].length > 0 ? (
               expensesData[id].map((group, index) => (
                 <View key={index}>
                   <Text className="font-medium text-lg">{group.month}</Text>
-                  <View className="my-4">
+                  <View style={{ marginTop: hp("2%") }} className="my-5">
                     {group.transaction.map((item, index) =>
                       renderItem(item, index)
                     )}

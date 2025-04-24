@@ -1,0 +1,42 @@
+[
+  {
+    "icon": "food",
+    "widthIcon": 5,
+    "heightIcon": 9,
+    "title": "Dinner",
+    "date": "18:27 - April 30",
+    "amount": "-$300,500"
+  },
+  {
+    "icon": "transport",
+    "widthIcon": 7,
+    "heightIcon": 7,
+    "title": "Transport",
+    "date": "18:27 - April 30",
+    "amount": "-$45,000"
+  },
+  {
+    "icon": "market",
+    "widthIcon": 5,
+    "heightIcon": 8,
+    "title": "Market",
+    "date": "18:27 - April 30",
+    "amount": "-$10,000"
+  },
+  {
+    "icon": "rent",
+    "widthIcon": 7,
+    "heightIcon": 6,
+    "title": "Rent",
+    "date": "18:27 - April 30",
+    "amount": "-$100,500"
+  },
+  {
+    "icon": "salary",
+    "widthIcon": 7,
+    "heightIcon": 7,
+    "title": "Salary",
+    "date": "18:27 - April 30",
+    "amount": "$300,500"
+  }
+]
