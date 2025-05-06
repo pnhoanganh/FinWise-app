@@ -7,7 +7,7 @@ import {
 } from "react-native-responsive-screen";
 import Style from "@/assets/styles/login.styles";
 
-const AddMoreTag = ({ isOpen, onClose }) => {
+const AddMoreGoal = ({ isOpen, onClose }) => {
   return (
     <Modal visible={isOpen} transparent animationType="slide">
       <View
@@ -55,7 +55,29 @@ const AddMoreTag = ({ isOpen, onClose }) => {
               },
             ]}
           >
-            <TextInput style={Style.input} placeholder="write..."></TextInput>
+            <TextInput
+              style={Style.input}
+              placeholder="write category..."
+            ></TextInput>
+          </View>
+          <View
+            style={[
+              Style.inputContainer,
+              {
+                borderRadius: hp("5%") / 2,
+                backgroundColor: "transparent",
+                borderWidth: 0.5,
+                borderColor: "gray",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              },
+            ]}
+          >
+            <TextInput
+              style={Style.input}
+              placeholder="write goal..."
+            ></TextInput>
           </View>
           <View
             style={{
@@ -112,4 +134,4 @@ const AddMoreTag = ({ isOpen, onClose }) => {
   );
 };
 
-export default AddMoreTag;
+export default AddMoreGoal;

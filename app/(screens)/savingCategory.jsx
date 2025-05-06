@@ -21,6 +21,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import tagData from "../../assets/data/categoriesData/goalTag.json";
 import Styles from "../../assets/styles/notification.styles";
 import Tag from "../../components/TagCategory";
+import AddMoreGoalModal from "@/components/Modal/AddMoreGoal";
 
 export default function SavingCategory() {
   const navigation = useNavigation();
@@ -28,6 +29,7 @@ export default function SavingCategory() {
   const { id } = useLocalSearchParams();
   const [goalData, setGoalData] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     setGoalData(tagData);
   }, []);
@@ -156,7 +158,7 @@ export default function SavingCategory() {
             { useNativeDriver: false }
           )}
         >
-          <View className="flex flex-row flex-wrap gap-7 justify-start">
+          <View className="flex flex-row flex-wrap gap-7 mt-6 justify-start">
             {goalData.map((item, index) => (
               <Tag
                 key={index}
@@ -171,7 +173,33 @@ export default function SavingCategory() {
               />
             ))}
           </View>
+          <TouchableOpacity
+            style={{
+              marginHorizontal: "auto",
+              marginTop: hp("6%"),
+              backgroundColor: COLORS.darkGreen,
+              paddingVertical: hp("1%"),
+              paddingHorizontal: wp("7%"),
+              borderRadius: wp("7%"),
+            }}
+            onPress={() => {
+              setVisible(true);
+            }}
+          >
+            <Text
+              style={{ color: COLORS.bagie, fontWeight: 500, fontSize: 18 }}
+            >
+              Add More
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
+        <AddMoreGoalModal
+          isOpen={visible}
+          onClose={() => {
+            setVisible(false);
+            setSelectedTag(null);
+          }}
+        />
       </View>
     </SafeScreen>
   );

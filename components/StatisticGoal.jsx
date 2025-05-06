@@ -23,15 +23,14 @@ const CalculatePercentage = (goal, saved) => {
   return Math.min(100, Math.max(0, Math.round(percentage)));
 };
 
-const StatisticGoal = ({
-  goal,
-  saved,
-  icon,
-  iconWidth,
-  iconHeight,
-  label,
-  data,
-}) => {
+const StatisticGoal = ({ goal, saved, icon, iconWidth, iconHeight, label }) => {
+  const percentage = CalculatePercentage(goal, saved);
+
+  const pieData = [
+    { value: percentage, color: "#EBA0C9" },
+    { value: 100 - percentage, color: "#FFFDEC" },
+  ];
+
   return (
     <View
       style={{
@@ -99,7 +98,7 @@ const StatisticGoal = ({
         </View>
         <View>
           <PieChartIcon
-            data={data}
+            data={pieData}
             icon={icon}
             iconWidth={iconWidth}
             iconHeight={iconHeight}
@@ -109,7 +108,7 @@ const StatisticGoal = ({
       </View>
       <View style={{ width: wp("100%"), marginTop: hp("2%") }}>
         <ProgressBar
-          percentage={CalculatePercentage(goal, saved)}
+          percentage={percentage}
           amount={goal}
           bg={COLORS.mainPink}
         />

@@ -9,7 +9,14 @@ const ProgressBar = ({ percentage, amount, bg }) => {
   return (
     <View style={styles.container}>
       <View style={[styles.fill, { flex: percentage }]}>
-        <Text style={styles.percentageText}>{percentage}%</Text>
+        <Text
+          style={[
+            styles.percentageText,
+            { display: percentage <= 10 ? "none" : "flex" },
+          ]}
+        >
+          {percentage}%
+        </Text>
       </View>
       <View
         style={[

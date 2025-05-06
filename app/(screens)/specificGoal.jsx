@@ -1,7 +1,14 @@
 import { useState, useRef, useEffect } from "react";
-import { Text, View, ScrollView, Animated } from "react-native";
-
+import {
+  Text,
+  View,
+  ScrollView,
+  Animated,
+  TouchableOpacity,
+} from "react-native";
+import COLORS from "../../constants/color";
 import { Link, useLocalSearchParams, useNavigation, router } from "expo-router";
+import { Image } from "expo-image";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   widthPercentageToDP as wp,
@@ -10,23 +17,33 @@ import {
 import AnalysisStyles from "../../assets/styles/analysis.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import data from "../../assets/data/categoriesData/allExpenses.json";
+import data from "../../assets/data/categoriesData/savingData.json";
 import CategoryExpenseItem from "../../components/CategoryExpenseItem";
 import Styles from "../../assets/styles/notification.styles";
 import StatisticGoal from "../../components/StatisticGoal";
-const pieData = [
-  { value: 70, color: "#EBA0C9" },
-  { value: 30, color: "#FFFDEC" },
-];
 
-export default function SpecificCategory() {
+const calculateSavedAmount = (months) => {
+  if (!months) return 0;
+
+  return months.reduce((total, month) => {
+    const monthTotal = month.transaction.reduce(
+      (sum, item) => sum + item.amount,
+      0
+    );
+    return total + monthTotal;
+  }, 0);
+};
+export default function SpecificGoal() {
   const navigation = useNavigation();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const { id } = useLocalSearchParams();
-  const [expensesData, setExpensesData] = useState();
+  const [savingData, setSavingData] = useState();
+
   useEffect(() => {
-    setExpensesData(data);
-  }, []);
+    if (id && data[id]) {
+      setSavingData(data[id]);
+    }
+  }, [id]);
 
   const renderItem = (item, index) => (
     <CategoryExpenseItem
@@ -36,17 +53,11 @@ export default function SpecificCategory() {
       heightIcon={wp(`${item.heightIcon}%`)}
       title={item.title}
       date={item.date}
-      amount={`-$${Math.abs(item.amount).toLocaleString("en-US", {
+      amount={`$${item.amount.toLocaleString("en-US", {
         minimumFractionDigits: 2,
       })}`}
     />
   );
-
-  const financeData = {
-    totalBalance: 7783.0,
-    totalExpense: 1187.4,
-    percentageOfExpenses: 30,
-  };
   return (
     <SafeScreen>
       <View style={AnalysisStyles.container}>
@@ -78,17 +89,81 @@ export default function SpecificCategory() {
             { useNativeDriver: false }
           )}
         >
-          <View className="mt-8">
-            <StatisticGoal
-              goal={1962.93}
-              saved={653.31}
-              label="Travel"
-              icon="travel"
-              data={pieData}
-              iconHeight={wp(`${8}%`)}
-              iconWidth={wp(`${15}%`)}
-            />
-          </View>
+          {savingData && (
+            <>
+              <View className="mt-8">
+                <StatisticGoal
+                  goal={savingData.goal}
+                  saved={calculateSavedAmount(savingData.months)}
+                  label={savingData.label}
+                  icon={savingData.icon}
+                  iconHeight={wp(`${savingData.height}%`)}
+                  iconWidth={wp(`${savingData.width}%`)}
+                />
+              </View>
+              <View style={{ marginTop: hp("4%") }}>
+                <TouchableOpacity
+                  style={{
+                    width: wp("10%"),
+                    height: wp("9%"),
+                    backgroundColor: COLORS.mainPink,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 15,
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    zIndex: 10,
+                  }}
+                  onPress={() => router.navigate("/(screens)/calendarAnalysis")}
+                >
+                  <Image
+                    source={require("../../assets/images/calender.svg")}
+                    style={{ width: 18, height: 16 }}
+                  />
+                </TouchableOpacity>
+                {savingData.months?.map((monthData, monthIndex) => (
+                  <View
+                    key={`${monthData.month}-${monthIndex}`}
+                    style={{ marginBottom: hp("3%") }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "600",
+                        marginBottom: 8,
+                      }}
+                    >
+                      {monthData.month}
+                    </Text>
+                    {monthData.transaction.map((item, index) =>
+                      renderItem(item, index)
+                    )}
+                  </View>
+                ))}
+              </View>
+            </>
+          )}
+          <TouchableOpacity
+            style={{
+              marginHorizontal: "auto",
+              marginTop: hp("2%"),
+              backgroundColor: COLORS.darkGreen,
+              paddingVertical: hp("1%"),
+              paddingHorizontal: wp("7%"),
+              borderRadius: wp("7%"),
+            }}
+            onPress={() => {
+              router.navigate("/(screens)/addExpense");
+            }}
+          >
+            <Text
+              style={{ color: COLORS.bagie, fontWeight: 500, fontSize: 18 }}
+            >
+              Add Savings
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </SafeScreen>
