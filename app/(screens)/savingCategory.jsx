@@ -1,39 +1,35 @@
 import { useState, useRef, useEffect } from "react";
-import { Text, View, ScrollView, Animated } from "react-native";
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 import { Image } from "expo-image";
-import { Link, useNavigation, router } from "expo-router";
+import { Link, useLocalSearchParams, useNavigation, router } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import COLORS from "@/constants/color";
-import AnalysisStyles from "@/assets/styles/analysis.styles";
+import AnalysisStyles from "../../assets/styles/analysis.styles";
 import ProgressBar from "@/components/Char/ProgressBar";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import tagData from "@/assets/data/categoriesData/tag.json";
-import AddMoreTagModal from "@/components/Modal/AddMoreTag";
-import Tag from "@/components/TagCategory";
+import tagData from "../../assets/data/categoriesData/goalTag.json";
+import Styles from "../../assets/styles/notification.styles";
+import Tag from "../../components/TagCategory";
 
-export default function Categories() {
+export default function SavingCategory() {
   const navigation = useNavigation();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
-  const [categories, setCategories] = useState([]);
+  const { id } = useLocalSearchParams();
+  const [goalData, setGoalData] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null);
-  const [visible, setVisible] = useState(false);
-
   useEffect(() => {
-    const fullTag = [
-      ...tagData,
-      {
-        id: "moreTag",
-        label: "More",
-        icon: "more",
-        isMore: true,
-      },
-    ];
-    setCategories(fullTag);
+    setGoalData(tagData);
   }, []);
 
   const handleSelectedTag = (item) => {
@@ -44,18 +40,8 @@ export default function Categories() {
 
     setSelectedTag(item.id);
 
-    if (item.isMore) {
-      setVisible(true);
-      return;
-    }
-
-    const pathname =
-      item.label === "Saving"
-        ? "/(screens)/savingCategory"
-        : "/(screens)/specificCategory";
-
     router.push({
-      pathname,
+      pathname: "/(screens)/specificGoal",
       params: { id: item.label },
     });
 
@@ -81,7 +67,7 @@ export default function Categories() {
             onPress={() => navigation.goBack()}
           />
           <View>
-            <Text style={{ fontSize: 20, fontWeight: 600 }}>Categories</Text>
+            <Text style={{ fontSize: 20, fontWeight: 600 }}>{id}</Text>
           </View>
           <Link href="/(screens)/notification">
             <Ionicons name="notifications" size={24} color="black" />
@@ -163,15 +149,15 @@ export default function Categories() {
           scrollEventThrottle={5}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          style={[AnalysisStyles.card, { maxHeight: undefined }]}
-          contentContainerStyle={{ paddingBottom: hp("10%") }}
+          style={[Styles.card, { maxHeight: undefined }]}
+          contentContainerStyle={{ paddingBottom: hp("20%") }}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
             { useNativeDriver: false }
           )}
         >
           <View className="flex flex-row flex-wrap gap-7 justify-start">
-            {categories.map((item, index) => (
+            {goalData.map((item, index) => (
               <Tag
                 key={index}
                 icon={item.icon}
@@ -186,13 +172,6 @@ export default function Categories() {
             ))}
           </View>
         </ScrollView>
-        <AddMoreTagModal
-          isOpen={visible}
-          onClose={() => {
-            setVisible(false);
-            setSelectedTag(null);
-          }}
-        />
       </View>
     </SafeScreen>
   );

@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import COLORS from "../../constants/color";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";

@@ -1,0 +1,24 @@
+[
+  { "id": 1, "label": "Travel", "icon": "travel", "height": 8, "width": 15 },
+  {
+    "id": 2,
+    "label": "New Home",
+    "icon": "newHome",
+    "height": 11,
+    "width": 12
+  },
+  {
+    "id": 3,
+    "label": "Car",
+    "icon": "car",
+    "height": 8,
+    "width": 13
+  },
+  {
+    "id": 4,
+    "label": "Wedding",
+    "icon": "wedding",
+    "height": 11,
+    "width": 12
+  }
+]
