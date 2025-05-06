@@ -40,13 +40,12 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    gap: wp("5%"),
+    gap: wp("3%"),
+    padding: wp(wp("1%")),
     justifyContent: "space-between",
   },
   leftSection: {
     alignItems: "center",
-    flex: 1,
-    paddingLeft: wp("8%"),
   },
   outerRing: {
     width: wp("22%"),
@@ -92,7 +91,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   rightSection: {
-    flex: 2,
     paddingLeft: wp("5%"),
     borderLeftWidth: 2,
     borderColor: COLORS.greenWhite,

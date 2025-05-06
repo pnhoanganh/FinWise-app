@@ -20,8 +20,12 @@ import SafeScreen from "@/components/SafeScreen";
 import ProgressBar from "../../components/Char/ProgressBar";
 import TransactionItem from "@/components/TransactionItem";
 import transactionData from "../../assets/data/transactions.json";
-
+import { PieChart } from "react-native-gifted-charts";
 export default function Home() {
+  const pieData = [
+    { value: 70, color: COLORS.deepPink },
+    { value: 30, color: COLORS.bagie },
+  ];
   // TABS DATA
   const [activeTab, setActiveTab] = useState("daily");
   const tabs = [
@@ -199,15 +203,12 @@ export default function Home() {
         >
           <View style={HomeStyles.box}>
             {/* Left: Circular progress with icon */}
-            <View style={HomeStyles.leftSection}>
-              {/* Placeholder for ring */}
+            {/* <View style={HomeStyles.leftSection}>
               <View style={HomeStyles.outerRing}>
-                {/* Nửa trái border */}
                 <View style={HomeStyles.leftBorder} />
-                {/* Nửa phải border */}
+
                 <View style={HomeStyles.rightBorder} />
 
-                {/* Vòng tròn nhỏ ở giữa (mặt nạ che viền) */}
                 <View style={HomeStyles.innerRing}>
                   <Image
                     source={require("@/assets/images/Car.svg")}
@@ -217,6 +218,34 @@ export default function Home() {
               </View>
 
               <Text style={HomeStyles.goalText}>Savings{"\n"}On Goals</Text>
+            </View> */}
+            <View style={HomeStyles.leftSection}>
+              <PieChart
+                donut
+                innerRadius={wp("10%")}
+                radius={wp("11%")}
+                innerCircleColor={COLORS.darkGreen}
+                data={pieData}
+                centerLabelComponent={() => {
+                  return (
+                    <Image
+                      source={require("../../assets/images/Car.svg")}
+                      style={{ width: wp("11%"), height: wp("7%") }}
+                    ></Image>
+                  );
+                }}
+              />
+              <Text
+                style={{
+                  textAlign: "center",
+                  marginTop: 8,
+                  color: COLORS.bagie,
+                  fontSize: wp("3%"),
+                  fontWeight: 600,
+                }}
+              >
+                Savings on goals
+              </Text>
             </View>
 
             {/* Right: Revenue and Food info */}
