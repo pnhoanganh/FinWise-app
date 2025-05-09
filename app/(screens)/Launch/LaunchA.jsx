@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
-import COLORS from "../../constants/color";
+import COLORS from "@/constants/color";
 import { Image } from "expo-image";
-import SafeScreen from "../SafeScreen";
+import SafeScreen from "@/components/SafeScreen";
 
 function LaunchA() {
   return (
     <SafeScreen>
       <View style={styles.container}>
         <Image
-          source={require("../../assets/images/logoFinWise-dark.svg")}
+          source={require("@/assets/images/logoFinWise-dark.svg")}
           style={styles.img}
         ></Image>
         <Text style={styles.text}> FinWise</Text>

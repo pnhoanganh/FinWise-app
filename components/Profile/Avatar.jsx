@@ -16,27 +16,37 @@ const Avatar = ({ onImagePicked, isEdit, name, ID, imageUri: externalUri }) => {
     if (externalUri) setImageUri(externalUri);
   }, [externalUri]);
 
+  // Hàm mở thư viện ảnh và chọn ảnh
   const pickImage = async () => {
+    // Xin quyền truy cập thư viện
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permission.granted) return;
+    if (!permission.granted) {
+      alert("Permission to access media library is required!");
+      return;
+    }
+    // Nếu không được cấp quyền thì thoát
 
+    // Mở thư viện để chọn ảnh
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: [ImagePicker.MediaType.IMAGE],
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images, // Chỉ chọn ảnh
+      allowsEditing: true, // Cho phép chỉnh sửa (crop)
+      aspect: [1, 1], // Tỉ lệ ảnh 1:1 (vuông)
+      quality: 1, // Chất lượng cao
     });
 
+    // Nếu người dùng chọn ảnh
     if (!result.canceled) {
-      const uri = result.assets[0].uri;
-      setImageUri(uri);
-      if (onImagePicked) onImagePicked(uri);
+      const uri = result.assets[0].uri; // Lấy đường dẫn ảnh
+      setImageUri(uri); // Cập nhật vào state
+      if (onImagePicked) onImagePicked(uri); // Gọi callback nếu có
     }
   };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
+        accessible={true}
+        accessibilityLabel="Pick profile image"
         onPress={() => {
           isEdit && pickImage();
         }}

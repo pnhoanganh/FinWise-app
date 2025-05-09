@@ -61,7 +61,7 @@ export default function Login() {
                 },
               ]}
               onPress={() => {
-                router.navigate("/(tabs)");
+                router.navigate("/(screens)/OnBoarding");
               }}
             >
               <Text style={LoginStyle.buttonText}>Log In</Text>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import LaunchA from "../components/Launch/LaunchA";
-import LaunchB from "../components/Launch/LaunchB";
+import LaunchA from "./(screens)/Launch/LaunchA";
+import LaunchB from "./(screens)/Launch/LaunchB";
 
 export default function LaunchScreen() {
   const [changeLayout, setChangeLayout] = useState(false);

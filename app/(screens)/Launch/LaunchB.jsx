@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import COLORS from "../../constants/color";
+import COLORS from "@/constants/color";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
-import SafeScreen from "../SafeScreen";
-import LoginStyle from "../../assets/styles/login.styles";
+import SafeScreen from "@/components/SafeScreen";
+import LoginStyle from "@/assets/styles/login.styles";
 
 function LaunchB() {
   const router = useRouter();
@@ -12,7 +12,7 @@ function LaunchB() {
       <SafeScreen backgroundColor={COLORS.greenWhite}>
         <View style={styles.container}>
           <Image
-            source={require("../../assets/images/logoFinWise-pink.svg")}
+            source={require("@/assets/images/logoFinWise-pink.svg")}
             style={styles.img}
           />
           <Text style={styles.title}>Fin Wise</Text>
