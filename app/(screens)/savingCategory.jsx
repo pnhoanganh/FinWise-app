@@ -19,7 +19,7 @@ import ProgressBar from "@/components/Char/ProgressBar";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import tagData from "../../assets/data/categoriesData/goalTag.json";
-import Styles from "../../assets/styles/notification.styles";
+import Styles from "../../assets/styles/login.styles";
 import Tag from "../../components/TagCategory";
 import AddMoreGoalModal from "@/components/Modal/AddMoreGoal";
 
@@ -151,26 +151,46 @@ export default function SavingCategory() {
           scrollEventThrottle={5}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          style={[Styles.card, { maxHeight: undefined }]}
+          style={[
+            Styles.card,
+            {
+              maxHeight: undefined,
+              marginTop: hp("3%"),
+            },
+          ]}
           contentContainerStyle={{ paddingBottom: hp("20%") }}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
             { useNativeDriver: false }
           )}
         >
-          <View className="flex flex-row flex-wrap gap-7 mt-6 justify-start">
-            {goalData.map((item, index) => (
-              <Tag
-                key={index}
-                icon={item.icon}
-                label={item.label}
-                heightIcon={item.height ? wp(`${item.height}%`) : wp("9%")}
-                widthIcon={item.width ? wp(`${item.width}%`) : wp("9%")}
-                onPressFunc={() => handleSelectedTag(item)}
-                bgColor={
-                  selectedTag === item.id ? COLORS.mainPink : COLORS.green
-                }
-              />
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+            }}
+          >
+            {goalData.map((item) => (
+              <View
+                key={item.id}
+                style={{
+                  width: "33.33%",
+                  paddingHorizontal: wp("1%"),
+                  paddingVertical: hp("1.5%"),
+                }}
+              >
+                <Tag
+                  icon={item.icon}
+                  label={item.label}
+                  heightIcon={wp(item.height ? `${item.height}%` : "9%")}
+                  widthIcon={wp(item.width ? `${item.width}%` : "9%")}
+                  onPressFunc={() => handleSelectedTag(item)}
+                  bgColor={
+                    selectedTag === item.id ? COLORS.mainPink : COLORS.green
+                  }
+                />
+              </View>
             ))}
           </View>
           <TouchableOpacity

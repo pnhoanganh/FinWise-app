@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    borderRadius: 66,
+    borderTopLeftRadius: 66,
+    borderTopRightRadius: 66,
     padding: wp("8%"),
     marginVertical: 16,
     shadowColor: COLORS.black,

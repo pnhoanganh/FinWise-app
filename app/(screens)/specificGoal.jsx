@@ -19,7 +19,7 @@ import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import data from "../../assets/data/categoriesData/savingData.json";
 import CategoryExpenseItem from "../../components/CategoryExpenseItem";
-import Styles from "../../assets/styles/notification.styles";
+import Styles from "../../assets/styles/login.styles";
 import StatisticGoal from "../../components/StatisticGoal";
 
 const calculateSavedAmount = (months) => {
@@ -82,7 +82,7 @@ export default function SpecificGoal() {
           scrollEventThrottle={5}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          style={[Styles.card, { maxHeight: undefined }]}
+          style={[Styles.card, { maxHeight: undefined, marginTop: hp("8%") }]}
           contentContainerStyle={{ paddingBottom: hp("20%") }}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],

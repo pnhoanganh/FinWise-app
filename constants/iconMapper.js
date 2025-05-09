@@ -13,5 +13,10 @@ const iconMapper = {
   wedding: require("@/assets/images/wedding.svg"),
   newHome: require("@/assets/images/newHome.svg"),
   car: require("@/assets/images/Car.svg"),
+  profile: require("@/assets/images/profile.svg"),
+  setting: require("@/assets/images/setting.svg"),
+  security: require("@/assets/images/security.svg"),
+  help: require("@/assets/images/help.svg"),
+  logout: require("@/assets/images/logout.svg"),
 };
 export default iconMapper;

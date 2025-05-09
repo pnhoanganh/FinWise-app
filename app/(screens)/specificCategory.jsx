@@ -20,7 +20,7 @@ import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import data from "../../assets/data/categoriesData/allExpenses.json";
 import CategoryExpenseItem from "../../components/CategoryExpenseItem";
-import Styles from "../../assets/styles/notification.styles";
+import LoginStyles from "../../assets/styles/login.styles";
 
 export default function SpecificCategory() {
   const navigation = useNavigation();
@@ -144,7 +144,10 @@ export default function SpecificCategory() {
           scrollEventThrottle={5}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          style={[Styles.card, { maxHeight: undefined }]}
+          style={[
+            LoginStyles.card,
+            { maxHeight: undefined, marginTop: hp("3%") },
+          ]}
           contentContainerStyle={{ paddingBottom: hp("20%") }}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],

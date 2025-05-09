@@ -31,9 +31,12 @@ const Tag = ({ icon, widthIcon, heightIcon, label, onPressFunc, bgColor }) => {
         style={{
           marginVertical: "auto",
           marginHorizontal: "auto",
+          paddingTop: hp("1%"),
         }}
       >
-        <Text className="text-center text-lg">{label}</Text>
+        <Text className="text-center" style={{ fontSize: wp("3.5x%") }}>
+          {label}
+        </Text>
       </View>
     </TouchableOpacity>
   );

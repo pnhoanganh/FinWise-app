@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Image, TouchableOpacity, StyleSheet, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import COLORS from "@/constants/color";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
-const Avatar = ({ onImagePicked, isEdit }) => {
+const Avatar = ({ onImagePicked, isEdit, name, ID }) => {
   const [imageUri, setImageUri] = useState(null);
   const defaultAvatar = require("../../assets/images/defaultProfile.webp");
 
@@ -47,6 +51,12 @@ const Avatar = ({ onImagePicked, isEdit }) => {
           />
         </View>
       </TouchableOpacity>
+      <Text style={{ marginTop: hp("1%"), fontSize: 24, fontWeight: 600 }}>
+        {name}
+      </Text>
+      <Text style={{ fontWeight: 600 }}>
+        ID: <Text style={{ fontWeight: 400 }}>{ID}</Text>
+      </Text>
     </View>
   );
 };
