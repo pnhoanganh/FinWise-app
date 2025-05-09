@@ -22,7 +22,6 @@ import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Avatar from "@/components/Profile/Avatar";
 import iconMapper from "@/constants/iconMapper";
-
 const EditProfile = () => {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
@@ -36,6 +35,8 @@ const EditProfile = () => {
     setIsEnabledTheme((previousState) => !previousState);
   };
 
+  // AVATAR IMAGE
+  const [selectedImg, setSelectedImg] = useState(null);
   return (
     <SafeScreen>
       <View style={AnalysisStyles.container}>
@@ -57,17 +58,19 @@ const EditProfile = () => {
           </Link>
         </View>
         <View style={{ position: "relative", top: hp("3%"), zIndex: 99 }}>
-          <Avatar isEdit={true} name="John Smith" ID="25030024" />
+          <Avatar
+            isEdit={true}
+            name="John Smith"
+            ID="25030024"
+            onImagePicked={(uri) => setSelectedImg(uri)}
+            imageUri={selectedImg}
+          />
         </View>
         {/* CARD */}
         <View
-          // scrollEventThrottle={5}
-          // showsVerticalScrollIndicator={false}
-          // showsHorizontalScrollIndicator={false}
           style={[
             LoginStyle.card,
             {
-              maxHeight: undefined,
               marginTop: 0,
               paddingTop: 0,
               position: "absolute",
@@ -76,19 +79,27 @@ const EditProfile = () => {
               left: 0,
             },
           ]}
-          // contentContainerStyle={{
-          //   paddingBottom: hp("0%"),
-          // }}
-          // onScroll={Animated.event(
-          //   [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
-          //   { useNativeDriver: false }
-          // )}
         >
-          <View
-            style={{ marginTop: hp("15%"), display: "flex", gap: hp("3.5%") }}
+          <ScrollView
+            scrollEventThrottle={5}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            style={{ marginTop: hp("16%") }}
+            contentContainerStyle={{
+              paddingBottom: hp("20%"),
+            }}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
+              { useNativeDriver: false }
+            )}
           >
-            <Text className=" text-2xl font-semibold">Account Settings</Text>
-            <View style={{ display: "flex", gap: hp("3%") }}>
+            <Text
+              className="font-semibold"
+              style={{ fontSize: wp("6%"), marginBottom: hp("2.5%") }}
+            >
+              Account Settings
+            </Text>
+            <View style={{ display: "flex", gap: hp("2%") }}>
               <View>
                 <Text className=" text-xl">Username</Text>
                 <View
@@ -158,7 +169,10 @@ const EditProfile = () => {
                   ></TextInput>
                 </View>
               </View>
-              <View className="flex flex-row justify-between">
+              <View
+                className="flex flex-row justify-between"
+                style={{ marginTop: hp("3%") }}
+              >
                 <Text className="text-xl">Push notifications</Text>
                 <Switch
                   onValueChange={toggleSwitch}
@@ -179,11 +193,27 @@ const EditProfile = () => {
                 />
               </View>
             </View>
-          </View>
+            <TouchableOpacity
+              style={{
+                marginHorizontal: "auto",
+                marginTop: hp("3%"),
+                backgroundColor: COLORS.darkGreen,
+                paddingVertical: hp("1%"),
+                paddingHorizontal: wp("7%"),
+                borderRadius: wp("7%"),
+              }}
+              onPress={() => {}}
+            >
+              <Text
+                style={{ color: COLORS.bagie, fontWeight: 500, fontSize: 18 }}
+              >
+                Update Profile
+              </Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </View>
     </SafeScreen>
   );
 };
-
 export default EditProfile;

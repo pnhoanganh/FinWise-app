@@ -34,7 +34,7 @@ const ButtonTag = ({ icon, label, widthIcon, heightIcon, onPressFunc }) => {
       <TouchableOpacity
         style={{
           backgroundColor: COLORS.deepPink,
-          padding: wp("3.5%"),
+          height: hp("7%"),
           width: wp("16%"),
           borderRadius: wp("6%"),
         }}
@@ -45,7 +45,7 @@ const ButtonTag = ({ icon, label, widthIcon, heightIcon, onPressFunc }) => {
           style={{ width: widthIcon, height: heightIcon, margin: "auto" }}
         />
       </TouchableOpacity>
-      <Text style={{ fontSize: 18, fontWeight: 500 }}>{label}</Text>
+      <Text style={{ fontSize: wp("5%"), fontWeight: 500 }}>{label}</Text>
     </View>
   );
 };
@@ -102,7 +102,7 @@ export default function User() {
         >
           <View
             className="flex flex-col gap-8"
-            style={{ marginTop: hp("15%") }}
+            style={{ marginTop: hp("17%") }}
           >
             <ButtonTag
               icon="profile"

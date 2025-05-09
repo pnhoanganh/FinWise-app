@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, TouchableOpacity, StyleSheet, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -8,16 +8,20 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-const Avatar = ({ onImagePicked, isEdit, name, ID }) => {
-  const [imageUri, setImageUri] = useState(null);
+const Avatar = ({ onImagePicked, isEdit, name, ID, imageUri: externalUri }) => {
+  const [imageUri, setImageUri] = useState(externalUri || null);
   const defaultAvatar = require("../../assets/images/defaultProfile.webp");
+
+  useEffect(() => {
+    if (externalUri) setImageUri(externalUri);
+  }, [externalUri]);
 
   const pickImage = async () => {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permission.granted) return;
 
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: [ImagePicker.MediaType.IMAGE],
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
@@ -51,10 +55,12 @@ const Avatar = ({ onImagePicked, isEdit, name, ID }) => {
           />
         </View>
       </TouchableOpacity>
-      <Text style={{ marginTop: hp("1%"), fontSize: 24, fontWeight: 600 }}>
+      <Text
+        style={{ marginTop: hp("1%"), fontSize: wp("6%"), fontWeight: 600 }}
+      >
         {name}
       </Text>
-      <Text style={{ fontWeight: 600 }}>
+      <Text style={{ fontWeight: 600, fontSize: wp("4%") }}>
         ID: <Text style={{ fontWeight: 400 }}>{ID}</Text>
       </Text>
     </View>
@@ -67,8 +73,8 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   image: {
-    width: 120,
-    height: 120,
+    width: wp("24%"),
+    height: wp("24%"),
     borderRadius: 60,
     borderWidth: 2,
     borderColor: "#ddd",
