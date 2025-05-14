@@ -112,10 +112,12 @@ export default function TermScreen() {
 
           {/* Checkbox */}
           <View style={styles.checkboxContainer}>
-            <Checkbox
-              status={checked ? "checked" : "unchecked"}
-              onPress={() => setChecked(!checked)}
-            />
+            <View style={{ borderWidth: 1, transform: [{ scale: 0.5 }] }}>
+              <Checkbox
+                status={checked ? "checked" : "unchecked"}
+                onPress={() => setChecked(!checked)}
+              />
+            </View>
             <Text style={styles.checkboxLabel}>
               I accept all the terms and conditions
             </Text>
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 10,
+    gap: wp("1%"),
   },
   checkboxLabel: { fontSize: 14 },
 });
