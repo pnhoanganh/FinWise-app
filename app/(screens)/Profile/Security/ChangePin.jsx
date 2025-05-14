@@ -1,0 +1,123 @@
+import {
+  Text,
+  View,
+  ScrollView,
+  Animated,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import { useRef, useState } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import COLORS from "@/constants/color";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { Link, router, useNavigation } from "expo-router";
+import Styles from "@/assets/styles/notification.styles";
+import LoginStyle from "@/assets/styles/login.styles";
+import SafeScreen from "@/components/SafeScreen";
+import AntDesign from "@expo/vector-icons/AntDesign";
+
+export default function ChangePinScreen() {
+  const navigation = useNavigation();
+  const scrollOffsetY = useRef(new Animated.Value(0)).current;
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  return (
+    <SafeScreen>
+      <View style={Styles.container}>
+        {/* HEADER */}
+        <View style={Styles.header}>
+          <AntDesign
+            name="arrowleft"
+            size={24}
+            color="black"
+            onPress={() => navigation.goBack()}
+          />
+          <View>
+            <Text style={{ fontSize: 20, fontWeight: 600 }}>Change Pin</Text>
+          </View>
+          <Link href="/(screens)/notification">
+            <Ionicons name="notifications" size={24} color="black" />
+          </Link>
+        </View>
+
+        {/* CARD */}
+        <View style={[Styles.card, { paddingTop: hp("8%"), gap: hp("3%") }]}>
+          <View style={LoginStyle.inputGroup}>
+            <Text style={LoginStyle.label}>Current Pin</Text>
+            <View style={LoginStyle.inputContainer}>
+              <TextInput
+                style={LoginStyle.input}
+                secureTextEntry={!showPassword}
+                placeholder="Enter your pin"
+                placeholderTextColor={COLORS.textSecondary}
+              />
+              <Ionicons
+                name={showPassword ? "eye-off-outline" : "eye-outline"}
+                size={24}
+                color="black"
+                onPress={toggleShowPassword}
+              />
+            </View>
+          </View>
+          <View style={LoginStyle.inputGroup}>
+            <Text style={LoginStyle.label}>New Pin</Text>
+            <View style={LoginStyle.inputContainer}>
+              <TextInput
+                style={LoginStyle.input}
+                secureTextEntry={!showPassword}
+                placeholder="Enter your pin"
+                placeholderTextColor={COLORS.textSecondary}
+              />
+              <Ionicons
+                name={showPassword ? "eye-off-outline" : "eye-outline"}
+                size={24}
+                color="black"
+                onPress={toggleShowPassword}
+              />
+            </View>
+          </View>
+          <View style={LoginStyle.inputGroup}>
+            <Text style={LoginStyle.label}>Confirm Pin</Text>
+            <View style={LoginStyle.inputContainer}>
+              <TextInput
+                style={LoginStyle.input}
+                secureTextEntry={!showPassword}
+                placeholder="Enter your pin"
+                placeholderTextColor={COLORS.textSecondary}
+              />
+              <Ionicons
+                name={showPassword ? "eye-off-outline" : "eye-outline"}
+                size={24}
+                color="black"
+                onPress={toggleShowPassword}
+              />
+            </View>
+          </View>
+          <TouchableOpacity
+            style={{
+              marginHorizontal: "auto",
+              marginTop: hp("3%"),
+              backgroundColor: COLORS.darkGreen,
+              paddingVertical: hp("1%"),
+              paddingHorizontal: wp("7%"),
+              borderRadius: wp("7%"),
+            }}
+            onPress={() => {}}
+          >
+            <Text
+              style={{ color: COLORS.bagie, fontWeight: 500, fontSize: 18 }}
+            >
+              Change Pin
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeScreen>
+  );
+}

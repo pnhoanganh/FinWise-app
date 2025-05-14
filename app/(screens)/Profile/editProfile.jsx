@@ -8,8 +8,7 @@ import {
   TextInput,
   Switch,
 } from "react-native";
-import { Image } from "expo-image";
-import { Link, router, useNavigation } from "expo-router";
+import { Link, router } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   widthPercentageToDP as wp,
@@ -21,10 +20,8 @@ import LoginStyle from "@/assets/styles/login.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Avatar from "@/components/Profile/Avatar";
-import iconMapper from "@/constants/iconMapper";
 const EditProfile = () => {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
-  const navigation = useNavigation();
   // SWITCH
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
@@ -46,7 +43,7 @@ const EditProfile = () => {
             name="arrowleft"
             size={24}
             color="black"
-            onPress={() => navigation.goBack()}
+            onPress={() => router.back()}
           />
           <View>
             <Text style={{ fontSize: 20, fontWeight: 600 }}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import LoginStyle from "../../assets/styles/login.styles";
 import { Image } from "expo-image";
@@ -14,6 +14,10 @@ import {
 
 export default function Login() {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <SafeScreen>
       <View style={LoginStyle.container}>
@@ -41,10 +45,16 @@ export default function Login() {
               <View style={LoginStyle.inputContainer}>
                 <TextInput
                   style={LoginStyle.input}
+                  secureTextEntry={!showPassword}
                   placeholder="Enter your password"
                   placeholderTextColor={COLORS.textSecondary}
                 />
-                <Ionicons name="eye-off-outline" size={24} color="black" />
+                <Ionicons
+                  name={showPassword ? "eye-off-outline" : "eye-outline"}
+                  size={24}
+                  color="black"
+                  onPress={toggleShowPassword}
+                />
               </View>
             </View>
           </View>
@@ -61,7 +71,7 @@ export default function Login() {
                 },
               ]}
               onPress={() => {
-                router.navigate("/(screens)/OnBoarding");
+                router.navigate("/(screens)/OnBoarding/OnBoardingA");
               }}
             >
               <Text style={LoginStyle.buttonText}>Log In</Text>

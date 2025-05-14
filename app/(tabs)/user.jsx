@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import {
   Text,
   View,
-  ScrollView,
   TouchableOpacity,
   Animated,
+  ScrollView,
 } from "react-native";
 import { Image } from "expo-image";
 import { Link, router, useNavigation } from "expo-router";
@@ -77,13 +77,9 @@ export default function User() {
         </View>
         {/* CARD */}
         <View
-          // scrollEventThrottle={5}
-          // showsVerticalScrollIndicator={false}
-          // showsHorizontalScrollIndicator={false}
           style={[
             LoginStyle.card,
             {
-              maxHeight: undefined,
               marginTop: 0,
               paddingTop: 0,
               position: "absolute",
@@ -92,52 +88,59 @@ export default function User() {
               left: 0,
             },
           ]}
-          // contentContainerStyle={{
-          //   paddingBottom: hp("0%"),
-          // }}
-          // onScroll={Animated.event(
-          //   [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
-          //   { useNativeDriver: false }
-          // )}
         >
-          <View
-            className="flex flex-col gap-8"
-            style={{ marginTop: hp("17%") }}
+          <ScrollView
+            scrollEventThrottle={5}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            style={{ marginTop: hp("15%") }}
+            contentContainerStyle={{
+              paddingBottom: hp("20%"),
+            }}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
+              { useNativeDriver: false }
+            )}
           >
-            <ButtonTag
-              icon="profile"
-              label="Edit Profile"
-              widthIcon={wp("7%")}
-              heightIcon={wp("8%")}
-              onPressFunc={() =>
-                router.navigate("(screens)/Profile/editProfile")
-              }
-            />
-            <ButtonTag
-              icon="security"
-              label="Security"
-              widthIcon={wp("7%")}
-              heightIcon={wp("8%")}
-            />
-            <ButtonTag
-              icon="setting"
-              label="Setting"
-              widthIcon={wp("7%")}
-              heightIcon={wp("8%")}
-            />
-            <ButtonTag
-              icon="help"
-              label="Help"
-              widthIcon={wp("8%")}
-              heightIcon={wp("8%")}
-            />
-            <ButtonTag
-              icon="logout"
-              label="Logout"
-              widthIcon={wp("5%")}
-              heightIcon={wp("8%")}
-            />
-          </View>
+            <View className="flex flex-col gap-8">
+              <ButtonTag
+                icon="profile"
+                label="Edit Profile"
+                widthIcon={wp("7%")}
+                heightIcon={wp("8%")}
+                onPressFunc={() =>
+                  router.push("/(screens)/Profile/editProfile")
+                }
+              />
+              <ButtonTag
+                icon="security"
+                label="Security"
+                widthIcon={wp("7%")}
+                heightIcon={wp("8%")}
+                onPressFunc={() =>
+                  router.push("/(screens)/Profile/Security/Security")
+                }
+              />
+              <ButtonTag
+                icon="setting"
+                label="Setting"
+                widthIcon={wp("7%")}
+                heightIcon={wp("8%")}
+              />
+              <ButtonTag
+                icon="help"
+                label="Help"
+                widthIcon={wp("8%")}
+                heightIcon={wp("8%")}
+              />
+              <ButtonTag
+                icon="logout"
+                label="Logout"
+                widthIcon={wp("5%")}
+                heightIcon={wp("8%")}
+              />
+            </View>
+          </ScrollView>
         </View>
       </View>
     </SafeScreen>
