@@ -20,6 +20,7 @@ import LoginStyle from "@/assets/styles/login.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Avatar from "@/components/Profile/Avatar";
+
 const EditProfile = () => {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   // SWITCH

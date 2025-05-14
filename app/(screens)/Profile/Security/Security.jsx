@@ -1,5 +1,4 @@
 import { Text, View, Animated, TouchableOpacity } from "react-native";
-import { useRef } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Styles from "@/assets/styles/notification.styles";
@@ -9,7 +8,6 @@ import { Link, router, useNavigation } from "expo-router";
 
 export default function SecurityScreen() {
   const navigation = useNavigation();
-  const scrollOffsetY = useRef(new Animated.Value(0)).current;
   return (
     <SafeScreen>
       <View style={Styles.container}>
@@ -32,22 +30,24 @@ export default function SecurityScreen() {
         {/* CARD */}
         <View style={[Styles.card]}>
           <Text className="text-2xl font-semibold my-8">Security</Text>
-          <View className="flex flex-row justify-between border-b pt-6 pb-8 border-[#DFF7E2]">
-            <TouchableOpacity
-              onPress={() => {
-                router.push("(screens)/Profile/Security/ChangePin");
-              }}
-            >
-              <Text className="text-xl">Change Pin</Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              router.push("(screens)/Profile/Security/ChangePin");
+            }}
+            className="flex flex-row justify-between border-b pt-6 pb-8 border-[#DFF7E2]"
+          >
+            <Text className="text-xl">Change Pin</Text>
             <MaterialIcons name="navigate-next" size={28} color="black" />
-          </View>
-          <View className="flex flex-row justify-between border-b py-6 border-[#DFF7E2]">
-            <TouchableOpacity>
-              <Text className="text-xl">Term And Conditions</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              router.push("(screens)/Profile/Security/Term");
+            }}
+            className="flex flex-row justify-between border-b py-6 border-[#DFF7E2]"
+          >
+            <Text className="text-xl">Term And Conditions</Text>
             <MaterialIcons name="navigate-next" size={28} color="black" />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeScreen>

@@ -1,20 +1,18 @@
 import {
   Text,
   View,
-  ScrollView,
   Animated,
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import COLORS from "@/constants/color";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Link, router, useNavigation } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import Styles from "@/assets/styles/notification.styles";
 import LoginStyle from "@/assets/styles/login.styles";
 import SafeScreen from "@/components/SafeScreen";
@@ -22,7 +20,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function ChangePinScreen() {
   const navigation = useNavigation();
-  const scrollOffsetY = useRef(new Animated.Value(0)).current;
+
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
