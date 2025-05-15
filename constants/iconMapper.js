@@ -18,5 +18,10 @@ const iconMapper = {
   security: require("@/assets/images/security.svg"),
   help: require("@/assets/images/help.svg"),
   logout: require("@/assets/images/logout.svg"),
+  helpDark: require("@/assets/images/helpDark.svg"),
+  whatapp: require("@/assets/images/whatapp.svg"),
+  instagram: require("@/assets/images/instagram.svg"),
+  website: require("@/assets/images/website.svg"),
+  facebook: require("@/assets/images/Facebook.svg"),
 };
 export default iconMapper;
