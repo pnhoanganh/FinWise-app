@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Text,
   View,
@@ -18,8 +18,10 @@ import AnalysisStyles from "@/assets/styles/analysis.styles";
 import LoginStyle from "@/assets/styles/login.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import Avatar from "../../components/Profile/Avatar";
+import Avatar from "@/components/Profile/Avatar";
 import iconMapper from "@/constants/iconMapper";
+import LogOut from "@/components/Modal/LogOut";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ButtonTag = ({ icon, label, widthIcon, heightIcon, onPressFunc }) => {
   return (
@@ -53,6 +55,20 @@ const ButtonTag = ({ icon, label, widthIcon, heightIcon, onPressFunc }) => {
 export default function User() {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
+  const [isLogOut, setIsLogOut] = useState(false);
+  const toggleLogOut = () => {
+    setIsLogOut(!isLogOut);
+  };
+  const handleLogout = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      await AsyncStorage.multiRemove(keys);
+
+      router.replace("/(auth)");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
 
   return (
     <SafeScreen>
@@ -135,17 +151,24 @@ export default function User() {
                 label="Help"
                 widthIcon={wp("8%")}
                 heightIcon={wp("8%")}
+                onPressFunc={() => router.push("/(screens)/Profile/helpCenter")}
               />
               <ButtonTag
                 icon="logout"
                 label="Logout"
                 widthIcon={wp("5%")}
                 heightIcon={wp("8%")}
+                onPressFunc={toggleLogOut}
               />
             </View>
           </ScrollView>
         </View>
       </View>
+      <LogOut
+        isOpen={isLogOut}
+        onClose={() => setIsLogOut(false)}
+        onConfirm={handleLogout}
+      />
     </SafeScreen>
   );
 }
