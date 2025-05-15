@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     gap: 50,
-    marginHorizontal: "auto",
+    marginHorizontal: wp("10%"),
   },
   text: {
     fontSize: 16,

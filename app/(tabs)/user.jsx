@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef } from "react";
 import {
   Text,
   View,
@@ -126,6 +126,9 @@ export default function User() {
                 label="Setting"
                 widthIcon={wp("7%")}
                 heightIcon={wp("8%")}
+                onPressFunc={() =>
+                  router.push("/(screens)/Profile/Setting/Setting")
+                }
               />
               <ButtonTag
                 icon="help"

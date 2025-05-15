@@ -14,6 +14,7 @@ const COLORS = {
   white: "#fff",
   black: "#000000",
   border: "#c8e6c9",
+  red: "#EF2748",
 };
 
 export default COLORS;

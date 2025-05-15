@@ -20,7 +20,7 @@ export default function TermScreen() {
     <SafeScreen>
       <View style={Styles.container}>
         {/* HEADER */}
-        <View style={Styles.header}>
+        <View style={[Styles.header, { marginHorizontal: "auto" }]}>
           <AntDesign
             name="arrowleft"
             size={24}

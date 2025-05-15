@@ -18,7 +18,7 @@ import LoginStyle from "@/assets/styles/login.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-export default function ChangePinScreen() {
+export default function ChangePassScreen() {
   const navigation = useNavigation();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -37,7 +37,9 @@ export default function ChangePinScreen() {
             onPress={() => navigation.goBack()}
           />
           <View>
-            <Text style={{ fontSize: 20, fontWeight: 600 }}>Change Pin</Text>
+            <Text style={{ fontSize: 20, fontWeight: 600 }}>
+              Password Settings
+            </Text>
           </View>
           <Link href="/(screens)/notification">
             <Ionicons name="notifications" size={24} color="black" />
@@ -47,7 +49,7 @@ export default function ChangePinScreen() {
         {/* CARD */}
         <View style={[Styles.card, { paddingTop: hp("8%"), gap: hp("3%") }]}>
           <View style={LoginStyle.inputGroup}>
-            <Text style={LoginStyle.label}>Current Pin</Text>
+            <Text style={LoginStyle.label}>Current Password</Text>
             <View style={LoginStyle.inputContainer}>
               <TextInput
                 style={LoginStyle.input}
@@ -64,7 +66,7 @@ export default function ChangePinScreen() {
             </View>
           </View>
           <View style={LoginStyle.inputGroup}>
-            <Text style={LoginStyle.label}>New Pin</Text>
+            <Text style={LoginStyle.label}>New Password</Text>
             <View style={LoginStyle.inputContainer}>
               <TextInput
                 style={LoginStyle.input}
@@ -81,7 +83,7 @@ export default function ChangePinScreen() {
             </View>
           </View>
           <View style={LoginStyle.inputGroup}>
-            <Text style={LoginStyle.label}>Confirm New Pin</Text>
+            <Text style={LoginStyle.label}>Confirm New Password</Text>
             <View style={LoginStyle.inputContainer}>
               <TextInput
                 style={LoginStyle.input}
@@ -111,7 +113,7 @@ export default function ChangePinScreen() {
             <Text
               style={{ color: COLORS.bagie, fontWeight: 500, fontSize: 18 }}
             >
-              Change Pin
+              Change Password
             </Text>
           </TouchableOpacity>
         </View>
