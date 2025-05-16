@@ -217,7 +217,7 @@ export default function Analysis() {
                     justifyContent: "center",
                   }}
                   onPress={() => {
-                    router.navigate("/(screens)/searchAnalysis");
+                    router.push("/(screens)/searchAnalysis");
                   }}
                 >
                   <Image
@@ -239,7 +239,7 @@ export default function Analysis() {
                     borderRadius: "50%",
                   }}
                   onPress={() => {
-                    router.navigate("/(screens)/calendarAnalysis");
+                    router.push("/(screens)/calendarAnalysis");
                   }}
                 >
                   <Image

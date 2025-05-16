@@ -72,7 +72,7 @@ export default function Login() {
                 },
               ]}
               onPress={() => {
-                router.navigate("/(screens)/OnBoarding/OnBoardingA");
+                router.push("/(screens)/OnBoarding/OnBoardingA");
               }}
             >
               <Text style={LoginStyle.buttonText}>Log In</Text>
@@ -92,7 +92,7 @@ export default function Login() {
                   marginTop: 0,
                 },
               ]}
-              onPress={() => router.navigate("/(auth)/signup")}
+              onPress={() => router.push("/(auth)/signup")}
             >
               <Text style={LoginStyle.buttonText}>Sign Up</Text>
             </TouchableOpacity>

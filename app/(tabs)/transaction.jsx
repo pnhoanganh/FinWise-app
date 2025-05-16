@@ -311,7 +311,7 @@ export default function Transaction() {
               right: 0,
               zIndex: 10,
             }}
-            onPress={() => router.navigate("/(screens)/calendarAnalysis")}
+            onPress={() => router.push("/(screens)/calendarAnalysis")}
           >
             <Image
               source={require("@/assets/images/calender.svg")}

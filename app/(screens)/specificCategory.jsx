@@ -168,7 +168,7 @@ export default function SpecificCategory() {
               right: 0,
               zIndex: 10,
             }}
-            onPress={() => router.navigate("/(screens)/calendarAnalysis")}
+            onPress={() => router.push("/(screens)/calendarAnalysis")}
           >
             <Image
               source={require("../../assets/images/calender.svg")}
@@ -210,7 +210,7 @@ export default function SpecificCategory() {
               borderRadius: wp("7%"),
             }}
             onPress={() => {
-              router.navigate("/(screens)/addExpense");
+              router.push("/(screens)/addExpense");
             }}
           >
             <Text
