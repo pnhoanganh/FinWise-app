@@ -140,7 +140,7 @@ export default function User() {
               <ButtonTag
                 icon="setting"
                 label="Setting"
-                widthIcon={wp("7%")}
+                widthIcon={wp("8%")}
                 heightIcon={wp("8%")}
                 onPressFunc={() =>
                   router.push("/(screens)/Profile/Setting/Setting")
