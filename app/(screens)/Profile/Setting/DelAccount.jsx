@@ -10,7 +10,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Styles from "@/assets/styles/notification.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Link, useNavigation } from "expo-router";
+import { Link, useNavigation, router } from "expo-router";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -19,15 +19,25 @@ import COLORS from "@/constants/color";
 import { useState, useRef } from "react";
 import LoginStyle from "@/assets/styles/login.styles";
 import DeleteAccount from "@/components/Modal/DeleteAccount";
+import usePasswordVisibility from "@/hooks/usePasswordVisibility";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function DelAccountScreen() {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
-  const [showPass, setShowPass] = useState(false);
-  const toggleShow = () => {
-    setShowPass(!showPass);
-  };
+  const { visibility, toggleSetVisibility } = usePasswordVisibility();
   const [isDelete, setIsDelete] = useState(false);
+  const handleDelete = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      await AsyncStorage.multiRemove(keys);
+
+      router.replace("/(auth)");
+    } catch (error) {
+      console.error("Delete failed", error);
+    }
+  };
+
   return (
     <SafeScreen>
       <View style={Styles.container}>
@@ -100,15 +110,15 @@ export default function DelAccountScreen() {
           <View style={[LoginStyle.inputContainer, { borderRadius: 50 }]}>
             <TextInput
               style={LoginStyle.input}
-              secureTextEntry={!showPass}
+              secureTextEntry={!visibility.password}
               placeholder="Enter your password"
               placeholderTextColor={COLORS.textSecondary}
             />
             <Ionicons
-              name={showPass ? "eye-outline" : "eye-off-outline"}
+              name={visibility.password ? "eye-outline" : "eye-off-outline"}
               size={20}
               color="black"
-              onPress={toggleShow}
+              onPress={() => toggleSetVisibility("password")}
             />
           </View>
           <TouchableOpacity
@@ -165,6 +175,7 @@ export default function DelAccountScreen() {
           onClose={() => {
             setIsDelete(false);
           }}
+          onConfirm={handleDelete}
         />
       </View>
     </SafeScreen>

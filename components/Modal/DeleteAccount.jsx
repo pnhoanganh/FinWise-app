@@ -5,9 +5,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import Style from "@/assets/styles/login.styles";
 
-const DeleteAccount = ({ isOpen, onClose }) => {
+const DeleteAccount = ({ isOpen, onClose, onConfirm }) => {
   return (
     <Modal visible={isOpen} transparent animationType="slide">
       <View
@@ -62,7 +61,7 @@ const DeleteAccount = ({ isOpen, onClose }) => {
                 borderRadius: 24,
                 paddingVertical: 12,
               }}
-              onPress={onClose}
+              onPress={onConfirm}
             >
               <Text
                 style={{

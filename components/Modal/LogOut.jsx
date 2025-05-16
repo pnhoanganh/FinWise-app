@@ -5,7 +5,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import Style from "@/assets/styles/login.styles";
 
 const LogOut = ({ isOpen, onClose, onConfirm }) => {
   return (

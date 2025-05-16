@@ -8,7 +8,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useNavigation } from "expo-router";
-import Styles from "../../assets/styles/notification.styles";
+import Styles from "@/assets/styles/notification.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
@@ -202,7 +202,7 @@ export default function NotificationScreen() {
             children={[
               <Noti
                 key={Math.random()}
-                icon={require("../../assets/images/noti.svg")}
+                icon={require("@/assets/images/noti.svg")}
                 widthIcon={wp("6%")}
                 heightIcon={hp("3.4%")}
                 title="Reminder!"
@@ -211,7 +211,7 @@ export default function NotificationScreen() {
               ></Noti>,
               <Noti
                 key={Math.random()}
-                icon={require("../../assets/images/new.svg")}
+                icon={require("@/assets/images/new.svg")}
                 widthIcon={wp("7.5%")}
                 heightIcon={hp("3.3%")}
                 title="New update"
@@ -226,7 +226,7 @@ export default function NotificationScreen() {
             children={[
               <Transaction
                 key={Math.random()}
-                icon={require("../../assets/images/money.svg")}
+                icon={require("@/assets/images/money.svg")}
                 widthIcon={wp("4%")}
                 heightIcon={hp("4%")}
                 title="Transactions"
@@ -236,7 +236,7 @@ export default function NotificationScreen() {
               ></Transaction>,
               <Noti
                 key={Math.random()}
-                icon={require("../../assets/images/noti.svg")}
+                icon={require("@/assets/images/noti.svg")}
                 widthIcon={wp("6%")}
                 heightIcon={hp("3.4%")}
                 title="Reminder!"
@@ -250,7 +250,7 @@ export default function NotificationScreen() {
             children={[
               <Noti
                 key={Math.random()}
-                icon={require("../../assets/images/down.svg")}
+                icon={require("@/assets/images/down.svg")}
                 widthIcon={wp("6%")}
                 heightIcon={hp("2.5%")}
                 title="Expense record"
@@ -259,7 +259,7 @@ export default function NotificationScreen() {
               ></Noti>,
               <Transaction
                 key={Math.random()}
-                icon={require("../../assets/images/money.svg")}
+                icon={require("@/assets/images/money.svg")}
                 widthIcon={wp("4%")}
                 heightIcon={hp("4%")}
                 title="Transactions"

@@ -4,8 +4,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import COLORS from "../../constants/color";
-import iconMapper from "../../constants/iconMapper";
+import COLORS from "@/constants/color";
+import iconMapper from "@/constants/iconMapper";
 import { PieChart } from "react-native-gifted-charts";
 
 const PieChartIcon = ({ icon, iconWidth, iconHeight, data, label }) => {

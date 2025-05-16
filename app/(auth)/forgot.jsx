@@ -7,10 +7,10 @@ import {
   Animated,
   TextInput,
 } from "react-native";
-import LoginStyle from "../../assets/styles/login.styles";
+import LoginStyle from "@/assets/styles/login.styles";
 import { Image } from "expo-image";
-import COLORS from "../../constants/color";
-import SafeScreen from "../../components/SafeScreen";
+import COLORS from "@/constants/color";
+import SafeScreen from "@/components/SafeScreen";
 import { useRouter, Link } from "expo-router";
 import {
   widthPercentageToDP as wp,
@@ -85,7 +85,7 @@ function ForgotPassword() {
                   marginTop: hp("2%"),
                 },
               ]}
-              onPress={() => router.navigate("/(auth)/signup")}
+              onPress={() => router.push("/(auth)/signup")}
             >
               <Text style={LoginStyle.buttonText}>Sign Up</Text>
             </TouchableOpacity>

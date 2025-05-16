@@ -14,12 +14,12 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import COLORS from "@/constants/color";
-import HomeStyles from "../../assets/styles/home.styles";
+import HomeStyles from "@/assets/styles/home.styles";
 import AnalysisStyles from "@/assets/styles/analysis.styles";
 import SafeScreen from "@/components/SafeScreen";
-import ProgressBar from "../../components/Char/ProgressBar";
+import ProgressBar from "@/components/Char/ProgressBar";
 import TransactionItem from "@/components/TransactionItem";
-import transactionData from "../../assets/data/transactions.json";
+import transactionData from "@/assets/data/transactions.json";
 import { PieChart } from "react-native-gifted-charts";
 export default function Home() {
   const pieData = [
@@ -128,7 +128,7 @@ export default function Home() {
           <View>
             <View style={HomeStyles.totalHeader}>
               <Image
-                source={require("../../assets/images/Income.svg")}
+                source={require("@/assets/images/Income.svg")}
                 style={{ width: 16, height: 16 }}
               />
               <Text style={HomeStyles.text}>Total Balance</Text>
@@ -152,7 +152,7 @@ export default function Home() {
           <View>
             <View style={HomeStyles.totalHeader}>
               <Image
-                source={require("../../assets/images/Expense.svg")}
+                source={require("@/assets/images/Expense.svg")}
                 style={{ width: 16, height: 16 }}
               />
               <Text style={HomeStyles.text}>Total Expense</Text>
@@ -181,7 +181,7 @@ export default function Home() {
           ]}
         >
           <Image
-            source={require("../../assets/images/check.png")}
+            source={require("@/assets/images/check.png")}
             style={{ width: 12, height: 12 }}
           />
           <Text style={{ fontSize: 15 }}>
@@ -203,22 +203,6 @@ export default function Home() {
         >
           <View style={HomeStyles.box}>
             {/* Left: Circular progress with icon */}
-            {/* <View style={HomeStyles.leftSection}>
-              <View style={HomeStyles.outerRing}>
-                <View style={HomeStyles.leftBorder} />
-
-                <View style={HomeStyles.rightBorder} />
-
-                <View style={HomeStyles.innerRing}>
-                  <Image
-                    source={require("@/assets/images/Car.svg")}
-                    style={{ width: wp("10%"), height: wp("6%") }}
-                  />
-                </View>
-              </View>
-
-              <Text style={HomeStyles.goalText}>Savings{"\n"}On Goals</Text>
-            </View> */}
             <View style={HomeStyles.leftSection}>
               <PieChart
                 donut
@@ -229,7 +213,7 @@ export default function Home() {
                 centerLabelComponent={() => {
                   return (
                     <Image
-                      source={require("../../assets/images/Car.svg")}
+                      source={require("@/assets/images/Car.svg")}
                       style={{ width: wp("11%"), height: wp("7%") }}
                     ></Image>
                   );

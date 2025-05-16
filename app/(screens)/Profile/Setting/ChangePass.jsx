@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import COLORS from "@/constants/color";
 import {
@@ -17,14 +16,12 @@ import Styles from "@/assets/styles/notification.styles";
 import LoginStyle from "@/assets/styles/login.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import usePasswordVisibility from "@/hooks/usePasswordVisibility";
 
 export default function ChangePassScreen() {
   const navigation = useNavigation();
+  const { visibility, toggleSetVisibility } = usePasswordVisibility();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
   return (
     <SafeScreen>
       <View style={Styles.container}>
@@ -53,15 +50,15 @@ export default function ChangePassScreen() {
             <View style={LoginStyle.inputContainer}>
               <TextInput
                 style={LoginStyle.input}
-                secureTextEntry={!showPassword}
-                placeholder="Enter your pin"
+                secureTextEntry={!visibility.password}
+                placeholder="Enter your current password"
                 placeholderTextColor={COLORS.textSecondary}
               />
               <Ionicons
-                name={showPassword ? "eye-outline" : "eye-off-outline"}
+                name={visibility.password ? "eye-outline" : "eye-off-outline"}
                 size={24}
                 color="black"
-                onPress={toggleShowPassword}
+                onPress={() => toggleSetVisibility("password")}
               />
             </View>
           </View>
@@ -70,15 +67,17 @@ export default function ChangePassScreen() {
             <View style={LoginStyle.inputContainer}>
               <TextInput
                 style={LoginStyle.input}
-                secureTextEntry={!showPassword}
-                placeholder="Enter your pin"
+                secureTextEntry={!visibility.newPassword}
+                placeholder="Enter your new password"
                 placeholderTextColor={COLORS.textSecondary}
               />
               <Ionicons
-                name={showPassword ? "eye-outline" : "eye-off-outline"}
+                name={
+                  visibility.newPassword ? "eye-outline" : "eye-off-outline"
+                }
                 size={24}
                 color="black"
-                onPress={toggleShowPassword}
+                onPress={() => toggleSetVisibility("newPassword")}
               />
             </View>
           </View>
@@ -87,15 +86,15 @@ export default function ChangePassScreen() {
             <View style={LoginStyle.inputContainer}>
               <TextInput
                 style={LoginStyle.input}
-                secureTextEntry={!showPassword}
-                placeholder="Enter your pin"
+                secureTextEntry={!visibility.confirm}
+                placeholder="Enter your new password"
                 placeholderTextColor={COLORS.textSecondary}
               />
               <Ionicons
-                name={showPassword ? "eye-outline" : "eye-off-outline"}
+                name={visibility.confirm ? "eye-outline" : "eye-off-outline"}
                 size={24}
                 color="black"
-                onPress={toggleShowPassword}
+                onPress={() => toggleSetVisibility("confirm")}
               />
             </View>
           </View>

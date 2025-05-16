@@ -6,7 +6,7 @@ import {
   Animated,
   TouchableOpacity,
 } from "react-native";
-import COLORS from "../../constants/color";
+import COLORS from "@/constants/color";
 import { Link, useLocalSearchParams, useNavigation, router } from "expo-router";
 import { Image } from "expo-image";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -14,13 +14,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import AnalysisStyles from "../../assets/styles/analysis.styles";
+import AnalysisStyles from "@/assets/styles/analysis.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import data from "../../assets/data/categoriesData/savingData.json";
-import CategoryExpenseItem from "../../components/CategoryExpenseItem";
-import Styles from "../../assets/styles/login.styles";
-import StatisticGoal from "../../components/StatisticGoal";
+import data from "@/assets/data/categoriesData/savingData.json";
+import CategoryExpenseItem from "@/components/CategoryExpenseItem";
+import Styles from "@/assets/styles/login.styles";
+import StatisticGoal from "@/components/StatisticGoal";
 
 const calculateSavedAmount = (months) => {
   if (!months) return 0;

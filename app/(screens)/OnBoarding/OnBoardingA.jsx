@@ -39,7 +39,7 @@ const onBoardingA = () => {
             }}
           >
             <Image
-              source={require("../../../assets/images/onBoardingA.png")}
+              source={require("@/assets/images/onBoardingA.png")}
               style={{
                 width: wp("70%"),
                 height: hp("30%"),

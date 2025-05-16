@@ -86,6 +86,94 @@ const ContactLink = ({ link, label, icon }) => {
   );
 };
 
+const questions = [
+  {
+    id: 1,
+    label: "How to use FinWise?",
+    answer: "To use FinWise, simply sign up and start adding your expenses.",
+  },
+  {
+    id: 2,
+    label: "How much does it cost to use FinWise?",
+    answer: "FinWise is free to use with optional premium features.",
+  },
+  {
+    id: 3,
+    label: "How to contact support?",
+    answer:
+      "You can contact support via the 'Contact Us' section or by emailing support@finwise.com.",
+  },
+  {
+    id: 4,
+    label: "How can I reset my password if I forget it?",
+    answer:
+      "Tap 'Forgot Password' on the login screen and follow the instructions to reset it via email.",
+  },
+  {
+    id: 5,
+    label: "Are there any privacy or data security measures in place?",
+    answer:
+      "Yes, FinWise uses encryption and secure storage to protect your personal and financial data.",
+  },
+  {
+    id: 6,
+    label: "Can I customize settings within the application?",
+    answer:
+      "Yes, you can personalize notifications, themes, and budget settings in the app's settings menu.",
+  },
+  {
+    id: 7,
+    label: "How can I delete my account?",
+    answer:
+      "Go to Settings > Account > Delete Account. Follow the prompts to permanently delete your data.",
+  },
+  {
+    id: 8,
+    label: "How do I access my expense history?",
+    answer:
+      "Navigate to the 'History' or 'Reports' tab to view all your past transactions and summaries.",
+  },
+  {
+    id: 9,
+    label: "Can I use the app offline?",
+    answer:
+      "Yes, you can use basic features offline. Your data will sync automatically once you're online.",
+  },
+];
+
+const contactLink = [
+  {
+    id: 1,
+    label: "Customer Service",
+    link: "https://www.google.com",
+    icon: "helpDark",
+  },
+  {
+    id: 2,
+    label: "Website",
+    link: "https://www.google.com",
+    icon: "website",
+  },
+  {
+    id: 3,
+    label: "Facebook",
+    link: "https://www.google.com",
+    icon: "facebook",
+  },
+  {
+    id: 4,
+    label: "Whatapp",
+    link: "https://www.google.com",
+    icon: "whatapp",
+  },
+  {
+    id: 5,
+    label: "Instagram",
+    link: "https://www.google.com",
+    icon: "instagram",
+  },
+];
+
 export default function HelpCenterScreen() {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
@@ -104,94 +192,6 @@ export default function HelpCenterScreen() {
   const toggleQuestion = (id) => {
     setExpandedQuestionId((prev) => (prev === id ? null : id));
   };
-
-  const questions = [
-    {
-      id: 1,
-      label: "How to use FinWise?",
-      answer: "To use FinWise, simply sign up and start adding your expenses.",
-    },
-    {
-      id: 2,
-      label: "How much does it cost to use FinWise?",
-      answer: "FinWise is free to use with optional premium features.",
-    },
-    {
-      id: 3,
-      label: "How to contact support?",
-      answer:
-        "You can contact support via the 'Contact Us' section or by emailing support@finwise.com.",
-    },
-    {
-      id: 4,
-      label: "How can I reset my password if I forget it?",
-      answer:
-        "Tap 'Forgot Password' on the login screen and follow the instructions to reset it via email.",
-    },
-    {
-      id: 5,
-      label: "Are there any privacy or data security measures in place?",
-      answer:
-        "Yes, FinWise uses encryption and secure storage to protect your personal and financial data.",
-    },
-    {
-      id: 6,
-      label: "Can I customize settings within the application?",
-      answer:
-        "Yes, you can personalize notifications, themes, and budget settings in the app's settings menu.",
-    },
-    {
-      id: 7,
-      label: "How can I delete my account?",
-      answer:
-        "Go to Settings > Account > Delete Account. Follow the prompts to permanently delete your data.",
-    },
-    {
-      id: 8,
-      label: "How do I access my expense history?",
-      answer:
-        "Navigate to the 'History' or 'Reports' tab to view all your past transactions and summaries.",
-    },
-    {
-      id: 9,
-      label: "Can I use the app offline?",
-      answer:
-        "Yes, you can use basic features offline. Your data will sync automatically once you're online.",
-    },
-  ];
-
-  const contactLink = [
-    {
-      id: 1,
-      label: "Customer Service",
-      link: "https://www.google.com",
-      icon: "helpDark",
-    },
-    {
-      id: 2,
-      label: "Website",
-      link: "https://www.google.com",
-      icon: "website",
-    },
-    {
-      id: 3,
-      label: "Facebook",
-      link: "https://www.google.com",
-      icon: "facebook",
-    },
-    {
-      id: 4,
-      label: "Whatapp",
-      link: "https://www.google.com",
-      icon: "whatapp",
-    },
-    {
-      id: 5,
-      label: "Instagram",
-      link: "https://www.google.com",
-      icon: "instagram",
-    },
-  ];
 
   return (
     <SafeScreen>

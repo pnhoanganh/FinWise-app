@@ -12,17 +12,17 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import Styles from "../../assets/styles/notification.styles";
-import searchStyles from "../../assets/styles/searchAnalysis";
+import Styles from "@/assets/styles/notification.styles";
+import searchStyles from "@/assets/styles/searchAnalysis";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Link, useNavigation } from "expo-router";
 import { format } from "date-fns";
 import { Calendar } from "react-native-calendars";
 import TransactionItem from "@/components/TransactionItem";
-import HomeStyles from "../../assets/styles/home.styles";
-import calendarData from "../../assets/data/analysisData/calendar.json";
-import PieChartFocusOnPress from "../../components/Char/PieChart";
+import HomeStyles from "@/assets/styles/home.styles";
+import calendarData from "@/assets/data/analysisData/calendar.json";
+import PieChartFocusOnPress from "@/components/Char/PieChart";
 
 export default function CalendarAnalysisScreen() {
   const navigation = useNavigation();

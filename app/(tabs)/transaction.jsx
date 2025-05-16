@@ -18,7 +18,7 @@ import AnalysisStyles from "@/assets/styles/analysis.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import TransactionItem from "@/components/TransactionItem";
-import transactionData from "../../assets/data/transactionData/monthlyTransaction.json";
+import transactionData from "@/assets/data/transactionData/monthlyTransaction.json";
 
 const calculateTotals = (transactionData) => {
   let totalIncome = 0;
@@ -213,8 +213,8 @@ export default function Transaction() {
               <Image
                 source={
                   activeTab === "incomeTab"
-                    ? require("../../assets/images/incomeWhite.svg")
-                    : require("../../assets/images/incomePink.svg")
+                    ? require("@/assets/images/incomeWhite.svg")
+                    : require("@/assets/images/incomePink.svg")
                 }
                 style={{ width: 20, height: 20 }}
               />
@@ -255,8 +255,8 @@ export default function Transaction() {
               <Image
                 source={
                   activeTab === "expenseTab"
-                    ? require("../../assets/images/expenseWhite.svg")
-                    : require("../../assets/images/expensesGreen.svg")
+                    ? require("@/assets/images/expenseWhite.svg")
+                    : require("@/assets/images/expensesGreen.svg")
                 }
                 style={{ width: 20, height: 20 }}
               />
@@ -314,7 +314,7 @@ export default function Transaction() {
             onPress={() => router.navigate("/(screens)/calendarAnalysis")}
           >
             <Image
-              source={require("../../assets/images/calender.svg")}
+              source={require("@/assets/images/calender.svg")}
               style={{ width: 18, height: 16 }}
             />
           </TouchableOpacity>

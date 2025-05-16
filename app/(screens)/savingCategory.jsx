@@ -14,13 +14,13 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import COLORS from "@/constants/color";
-import AnalysisStyles from "../../assets/styles/analysis.styles";
+import AnalysisStyles from "@/assets/styles/analysis.styles";
 import ProgressBar from "@/components/Char/ProgressBar";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import tagData from "../../assets/data/categoriesData/goalTag.json";
-import Styles from "../../assets/styles/login.styles";
-import Tag from "../../components/TagCategory";
+import tagData from "@/assets/data/categoriesData/goalTag.json";
+import Styles from "@/assets/styles/login.styles";
+import Tag from "@/components/TagCategory";
 import AddMoreGoalModal from "@/components/Modal/AddMoreGoal";
 
 export default function SavingCategory() {

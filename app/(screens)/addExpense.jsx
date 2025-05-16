@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import {
   Text,
   View,
@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import { Image } from "expo-image";
-import { Link, useLocalSearchParams, useNavigation, router } from "expo-router";
+import { useNavigation } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   widthPercentageToDP as wp,
@@ -17,12 +17,12 @@ import {
 import COLORS from "@/constants/color";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import Styles from "../../assets/styles/notification.styles";
-import DropdownComponent from "../../components/InputComponent/DropdownComponent";
+import Styles from "@/assets/styles/notification.styles";
+import DropdownComponent from "@/components/InputComponent/DropdownComponent";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
-import LoginStyle from "../../assets/styles/login.styles";
-import searchStyles from "../../assets/styles/searchAnalysis";
+import LoginStyle from "@/assets/styles/login.styles";
+import searchStyles from "@/assets/styles/searchAnalysis";
 
 export default function AddExpense() {
   const navigation = useNavigation();

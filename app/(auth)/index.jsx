@@ -11,13 +11,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import usePasswordVisibility from "@/hooks/usePasswordVisibility";
 
 export default function Login() {
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const { visibility, toggleSetVisibility } = usePasswordVisibility();
+
   return (
     <SafeScreen>
       <View style={LoginStyle.container}>
@@ -45,15 +44,17 @@ export default function Login() {
               <View style={LoginStyle.inputContainer}>
                 <TextInput
                   style={LoginStyle.input}
-                  secureTextEntry={!showPassword}
+                  secureTextEntry={!visibility.password}
                   placeholder="Enter your password"
                   placeholderTextColor={COLORS.textSecondary}
                 />
                 <Ionicons
-                  name={showPassword ? "eye-off-outline" : "eye-outline"}
+                  name={visibility.password ? "eye-outline" : "eye-off-outline"}
                   size={24}
                   color="black"
-                  onPress={toggleShowPassword}
+                  onPress={() => {
+                    toggleSetVisibility("password");
+                  }}
                 />
               </View>
             </View>

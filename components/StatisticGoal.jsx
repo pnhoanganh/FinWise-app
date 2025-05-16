@@ -4,7 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import COLORS from "../constants/color";
+import COLORS from "@/constants/color";
 import PieChartIcon from "./Char/PieChartIcon";
 import ProgressBar from "./Char/ProgressBar";
 import AnalysisStyles from "@/assets/styles/analysis.styles";

@@ -20,18 +20,13 @@ import LoginStyle from "@/assets/styles/login.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Avatar from "@/components/Profile/Avatar";
+import useToggleSwitch from "@/hooks/useToggleSwitch";
 
 const EditProfile = () => {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   // SWITCH
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => {
-    setIsEnabled((previousState) => !previousState);
-  };
-  const [isEnabledTheme, setIsEnabledTheme] = useState(false);
-  const toggleSwitchTheme = () => {
-    setIsEnabledTheme((previousState) => !previousState);
-  };
+  const [isEnabled, toggleSwitch] = useToggleSwitch();
+  const [isEnabledTheme, toggleSwitchTheme] = useToggleSwitch();
 
   // AVATAR IMAGE
   const [selectedImg, setSelectedImg] = useState(null);

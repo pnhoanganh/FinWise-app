@@ -1,27 +1,15 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import COLORS from "../../constants/color";
+import COLORS from "@/constants/color";
 
 const DropdownComponent = ({ data, label, placeholder }) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
-
-  // const renderLabel = () => {
-  //   if (value || isFocus) {
-  //     return (
-  //       <Text style={[styles.label, isFocus && { color: COLORS.deepPink }]}>
-  //         {label}
-  //       </Text>
-  //     );
-  //   }
-  //   return null;
-  // };
 
   return (
     <View style={styles.container}>

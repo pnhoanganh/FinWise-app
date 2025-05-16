@@ -14,13 +14,13 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import COLORS from "@/constants/color";
-import AnalysisStyles from "../../assets/styles/analysis.styles";
+import AnalysisStyles from "@/assets/styles/analysis.styles";
 import ProgressBar from "@/components/Char/ProgressBar";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import data from "../../assets/data/categoriesData/allExpenses.json";
-import CategoryExpenseItem from "../../components/CategoryExpenseItem";
-import LoginStyles from "../../assets/styles/login.styles";
+import data from "@/assets/data/categoriesData/allExpenses.json";
+import CategoryExpenseItem from "@/components/CategoryExpenseItem";
+import LoginStyles from "@/assets/styles/login.styles";
 
 export default function SpecificCategory() {
   const navigation = useNavigation();

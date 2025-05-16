@@ -14,18 +14,18 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import Styles from "../../assets/styles/notification.styles";
-import searchStyles from "../../assets/styles/searchAnalysis";
-import LoginStyle from "../../assets/styles/login.styles";
+import Styles from "@/assets/styles/notification.styles";
+import searchStyles from "@/assets/styles/searchAnalysis";
+import LoginStyle from "@/assets/styles/login.styles";
 import SafeScreen from "@/components/SafeScreen";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import DropdownComponent from "../../components/InputComponent/DropdownComponent";
+import DropdownComponent from "@/components/InputComponent/DropdownComponent";
 import { Link, useNavigation } from "expo-router";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 import RadioGroup from "react-native-radio-buttons-group";
-import CategoryExpenseItem from "../../components/CategoryExpenseItem";
-import data from "../../assets/data/analysisData/searchData.json";
+import CategoryExpenseItem from "@/components/CategoryExpenseItem";
+import data from "@/assets/data/analysisData/searchData.json";
 
 const getIncomeTransactions = (data) => {
   if (!data || !Array.isArray(data)) return [];

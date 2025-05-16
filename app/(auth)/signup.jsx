@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Text,
   View,
@@ -7,20 +7,38 @@ import {
   Animated,
   TextInput,
 } from "react-native";
-import LoginStyle from "../../assets/styles/login.styles";
-import { Image } from "expo-image";
-import COLORS from "../../constants/color";
+import LoginStyle from "@/assets/styles/login.styles";
+import COLORS from "@/constants/color";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import SafeScreen from "../../components/SafeScreen";
+import SafeScreen from "@/components/SafeScreen";
 import { Link } from "expo-router";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import "@expo/match-media";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { format } from "date-fns";
+import { Image } from "expo-image";
+import searchStyles from "@/assets/styles/searchAnalysis";
+import usePasswordVisibility from "@/hooks/usePasswordVisibility";
 
 export default function SignUp() {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
+  const { visibility, toggleSetVisibility } = usePasswordVisibility();
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const toggleDatepicker = () => {
+    setShow(!show);
+  };
+  const onChange = ({ type }, selectedDate) => {
+    if (type == "set") {
+      const currentDate = selectedDate;
+      setDate(currentDate);
+    } else {
+      toggleDatepicker();
+    }
+  };
   return (
     <SafeScreen>
       <View style={LoginStyle.container}>
@@ -41,7 +59,7 @@ export default function SignUp() {
           {/* FORM */}
           <View style={[{ paddingTop: 12 }]}>
             {/* Full Name */}
-            <View style={{ marginBottom: 8 }}>
+            <View style={{ marginBottom: 16 }}>
               <Text style={LoginStyle.label}>Full Name</Text>
               <View style={LoginStyle.inputContainer}>
                 <TextInput
@@ -52,7 +70,7 @@ export default function SignUp() {
               </View>
             </View>
             {/* Email */}
-            <View style={{ marginBottom: 12 }}>
+            <View style={{ marginBottom: 16 }}>
               <Text style={LoginStyle.label}>Email</Text>
               <View style={LoginStyle.inputContainer}>
                 <TextInput
@@ -63,7 +81,7 @@ export default function SignUp() {
               </View>
             </View>
             {/* Moblie Phone */}
-            <View style={{ marginBottom: 12 }}>
+            <View style={{ marginBottom: 16 }}>
               <Text style={LoginStyle.label}>Moblie Phone</Text>
               <View style={LoginStyle.inputContainer}>
                 <TextInput
@@ -75,39 +93,90 @@ export default function SignUp() {
             </View>
 
             {/* Date of Birth */}
-            <View style={{ marginBottom: 12 }}>
+            <View style={{ marginBottom: 16 }}>
               <Text style={LoginStyle.label}>Date of Birth</Text>
-              <View style={LoginStyle.inputContainer}>
+              <View style={[LoginStyle.inputContainer]}>
                 <TextInput
-                  style={LoginStyle.input}
-                  placeholder="Enter your birthday"
+                  style={[
+                    LoginStyle.input,
+                    { flex: 1 },
+                    show && { borderColor: COLORS.deepPink },
+                  ]}
+                  placeholder="Select date"
                   placeholderTextColor={COLORS.textSecondary}
+                  editable={false}
+                  value={format(date, "EEE, dd MMM yyyy")}
+                  onPressIn={toggleDatepicker}
                 />
+
+                <TouchableOpacity
+                  style={{
+                    width: wp("8%"),
+                    height: wp("8%"),
+                    backgroundColor: COLORS.mainPink,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "50%",
+                  }}
+                  onPress={toggleDatepicker}
+                >
+                  <Image
+                    source={require("@/assets/images/calender.svg")}
+                    style={{ width: 18, height: 16 }}
+                  />
+                </TouchableOpacity>
               </View>
+              {show && (
+                <View style={searchStyles.datePicker}>
+                  <DateTimePicker
+                    value={date}
+                    mode="date"
+                    display="spinner"
+                    is24Hour={true}
+                    onChange={onChange}
+                    style={{ width: "100%" }}
+                  />
+                </View>
+              )}
             </View>
 
             {/* Password */}
-            <View style={{ marginBottom: 12 }}>
+            <View style={{ marginBottom: 16 }}>
               <Text style={LoginStyle.label}>Password</Text>
               <View style={LoginStyle.inputContainer}>
                 <TextInput
                   style={LoginStyle.input}
+                  secureTextEntry={!visibility.newPassword}
                   placeholder="Enter your password"
                   placeholderTextColor={COLORS.textSecondary}
                 />
-                <Ionicons name="eye-off-outline" size={24} color="black" />
+                <Ionicons
+                  name={
+                    visibility.newPassword ? "eye-off-outline" : "eye-outline"
+                  }
+                  size={24}
+                  color="black"
+                  onPress={() => toggleSetVisibility("newPassword")}
+                />
               </View>
             </View>
             {/* Confirm Password */}
-            <View style={{ marginBottom: 12 }}>
+            <View style={{ marginBottom: 16 }}>
               <Text style={LoginStyle.label}>Confirm Password</Text>
               <View style={LoginStyle.inputContainer}>
                 <TextInput
                   style={LoginStyle.input}
+                  secureTextEntry={!visibility.confirm}
                   placeholder="Enter your password"
                   placeholderTextColor={COLORS.textSecondary}
                 />
-                <Ionicons name="eye-off-outline" size={24} color="black" />
+                <Ionicons
+                  name={visibility.confirm ? "eye-off-outline" : "eye-outline"}
+                  size={24}
+                  color="black"
+                  onPress={() => toggleSetVisibility("confirm")}
+                />
               </View>
             </View>
           </View>

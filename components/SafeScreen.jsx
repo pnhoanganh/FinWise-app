@@ -1,6 +1,6 @@
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View, StyleSheet } from "react-native";
-import COLORS from "../constants/color";
+import COLORS from "@/constants/color";
 
 export default function SafeScreen({ children, backgroundColor }) {
   const insets = useSafeAreaInsets();
