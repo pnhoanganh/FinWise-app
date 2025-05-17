@@ -21,23 +21,44 @@ FinWise is a **UI-only React Native project** that recreates the interface of a 
 
 ## 🖼️ Screenshots
 
-| Launch                                        | Login | Signup |
-| --------------------------------------------- | ----- | ------ |
-| ![Launch](./assets/images/screens/lauchB.png) |
-| ![Login](./assets/images/screens/login.png)   |
-| ![Signup](./assets/images/screens/signup.png) |
+<table>
+  <tr>
+    <th>Launch</th>
+    <th>Login</th>
+    <th>Signup</th>
+  </tr>
+  <tr>
+    <td><img src="./assets/images/screens/lauchB.png" width="200"/></td>
+    <td><img src="./assets/images/screens/login.png" width="200"/></td>
+    <td><img src="./assets/images/screens/signup.png" width="200"/></td>
+  </tr>
+</table>
 
-| OnBoarding                                              | Home | Analysis |
-| ------------------------------------------------------- | ---- | -------- |
-| ![OnBoarding](./assets/images//screens/onboardingB.png) |
-| ![Home](./assets/images//screens/home.png)              |
-| ![Analysis](./assets/images/screens/analysis.png)       |
+<table>
+  <tr>
+    <th>OnBoarding</th>
+    <th>Home</th>
+    <th>Analysis</th>
+  </tr>
+  <tr>
+    <td><img src="./assets/images/screens/onboardingB.png" width="200"/></td>
+    <td><img src="./assets/images/screens/home.png" width="200"/></td>
+    <td><img src="./assets/images/screens/analysis.png" width="200"/></td>
+  </tr>
+</table>
 
-| Transaction                                             | Category | Profile |
-| ------------------------------------------------------- | -------- | ------- |
-| ![Transaction](./assets/images/screens/transaction.png) |
-| ![Category](./assets/images/screens/category.png)       |
-| ![Profile](./assets/images/screens/profile.png)         |
+<table>
+  <tr>
+    <th>Transaction</th>
+    <th>Category</th>
+    <th>Profile</th>
+  </tr>
+  <tr>
+    <td><img src="./assets/images/screens/transaction.png" width="200"/></td>
+    <td><img src="./assets/images/screens/category.png" width="200"/></td>
+    <td><img src="./assets/images/screens/profile.png" width="200"/></td>
+  </tr>
+</table>
 
 > Screenshots are from actual UI implementation based on the Figma design.
 
