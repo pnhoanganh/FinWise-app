@@ -1,6 +1,8 @@
 # FinWise - Finance Management Mobile App UI 👋
 
-FinWise is a **UI-only React Native project** that recreates the interface of a personal finance management mobile app. This project focuses solely on front-end design and **does not include backend functionality or real data handling**. All screens are based on a community Figma design.
+FinWise is a **UI-only React Native project** that implements the interface of a personal finance management mobile app. While most screens are based on a community Figma design, **some parts have been custom-designed or modified** to better suit the app's flow or improve the user experience.
+
+This project focuses solely on Front-End design using Expo and Tailwind CSS (via NativeWind), and **does not include backend functionality or real data handling**.
 
 ## ✨ Original Figma Design
 
@@ -69,6 +71,7 @@ FinWise is a **UI-only React Native project** that recreates the interface of a 
 - **JavaScript**
 - **React Navigation**
 - **Styled Components / Custom Styles**
+- **Tailwind CSS (via NativeWind)**
 
 ## 👩🏻‍💻 Get started
 
