@@ -55,7 +55,7 @@ FinWise is a **UI-only React Native project** that recreates the interface of a 
   </tr>
   <tr>
     <td><img src="./assets/images/screens/transaction.png" width="200"/></td>
-    <td><img src="./assets/images/screens/category.png" width="200"/></td>
+    <td><img src="./assets/images/screens/categories.png" width="200"/></td>
     <td><img src="./assets/images/screens/profile.png" width="200"/></td>
   </tr>
 </table>
